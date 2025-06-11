@@ -1,0 +1,20 @@
+# requirements.txt
+streamlit
+pandas
+plotly-express
+google-generativeai
+SpeechRecognition
+pyaudio
+python-dotenv
+openpyxl
+fpdf2
+# requirements.txt
+streamlit
+pandas
+plotly-express
+google-generativeai
+SpeechRecognition
+pyaudio
+python-dotenv
+openpyxl
+fpdf2
