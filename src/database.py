@@ -75,7 +75,27 @@ class DatabaseManager:
             yield conn
         finally:
             conn.close()
+    # Add this method inside the DatabaseManager class in src/database.py
 
+    def delete_expense(self, expense_id: int, user_id: int) -> bool:
+        """
+        Deletes a specific expense entry, ensuring it belongs to the user.
+        Returns True if deletion was successful, False otherwise.
+        """
+        with self.lock, self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "DELETE FROM expenses WHERE id = ? AND user_id = ?",
+                (expense_id, user_id)
+            )
+            conn.commit()
+            # The cursor.rowcount will be > 0 only if a row was actually deleted.
+            if cursor.rowcount > 0:
+                logger.info(f"User {user_id} deleted expense {expense_id}.")
+                return True
+            else:
+                logger.warning(f"User {user_id} failed to delete non-existent or unauthorized expense {expense_id}.")
+                return False
     def _hash_value(self, value: str) -> str:
         return hashlib.sha256(value.encode()).hexdigest()
 
