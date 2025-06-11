@@ -5,6 +5,26 @@ from typing import Optional
 
 logger = logging.getLogger(__name__)
 
+# --- THIS IS THE SECTION THAT WAS MISSING ---
+def is_microphone_available() -> bool:
+    """
+    Checks if any microphones are available on the system.
+    This is crucial for gracefully handling server environments like Streamlit Cloud.
+    """
+    try:
+        # Get the list of microphone names. If this list is not empty, a mic is available.
+        mic_list = sr.Microphone.list_microphone_names()
+        return len(mic_list) > 0
+    except Exception as e:
+        # If any error occurs (like on a server without proper audio libraries), assume no mic.
+        logger.warning(f"Could not check for microphones, assuming none are available. Error: {e}")
+        return False
+
+# Check for microphone availability once on startup and export it.
+MICROPHONE_AVAILABLE = is_microphone_available()
+# --- END OF MISSING SECTION ---
+
+
 class VoiceProcessor:
     """
     Handles voice input and converts it to text with robust settings
@@ -23,33 +43,17 @@ class VoiceProcessor:
         """
         Listens for audio and returns a dictionary with the recognized text
         and any potential status or error messages.
-
-        Args:
-            energy_threshold (int): The energy level threshold for considering
-                                    sound as speech. Higher values ignore more noise.
-            pause_threshold (float): Seconds of non-speaking audio before a
-                                     phrase is considered complete.
-            timeout (int): Seconds to wait for speech to start before timing out.
-            phrase_limit (int): Maximum possible seconds for a single phrase.
-
-        Returns:
-            dict: A dictionary containing 'text', 'status', and 'error'.
         """
-        # Apply the dynamic settings to the recognizer instance
         self.recognizer.energy_threshold = energy_threshold
         self.recognizer.pause_threshold = pause_threshold
 
         with sr.Microphone() as source:
             try:
-                # Use listen_in_background for more robust, non-blocking listening if needed,
-                # but for this simple case, listen() is fine.
                 audio = self.recognizer.listen(
                     source,
                     timeout=timeout,
                     phrase_time_limit=phrase_limit
                 )
-                
-                # Use Google's recognizer
                 text = self.recognizer.recognize_google(audio)
                 logger.info(f"Google recognized: {text}")
                 return {"text": text, "status": "success", "error": None}
