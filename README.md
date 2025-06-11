@@ -69,7 +69,7 @@ Execute the following command from the root directory of the project:
 streamlit run main.py
 
 
-## Website to access
+## ▶️ Website to use
 
 ```bash
 https://expense-tracker-hemmu.streamlit.app/
