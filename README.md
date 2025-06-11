@@ -30,7 +30,7 @@ expense-tracker/
 
 1.  **Clone the Repository**
     ```bash
-    git clone [<repository-url>](https://github.com/hemmu3127/Expense-Tracker.git)
+    git clone https://github.com/hemmu3127/Expense-Tracker.git
     cd expense-tracker
     ```
 
