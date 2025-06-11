@@ -3,12 +3,19 @@
 A modern, AI-powered expense tracking application built with Streamlit and Google Gemini. This tool allows users to track expenses via text, voice, or bulk CSV upload, visualize spending patterns, and export reports.
 
 🔒 Secure User Authentication: Multi-user support with a robust login system and hashed passwords to keep your data secure.
+
 🗣️ AI-Powered Expense Parsing: Use natural language to add expenses quickly. Just type something like "Lunch with a client 1200 rupees yesterday" and the AI will handle the rest.
+
 🎙️ Robust Voice Input: Add expenses hands-free. This feature includes configurable settings for noise cancellation and pause detection, making it reliable even in noisy environments.
+
 📊 Interactive Dashboard: Visualize your finances with a powerful dashboard. Switch seamlessly between a detailed Monthly View and a high-level Yearly View to understand your spending patterns.
+
 🔍 Dynamic Dashboard Filtering: Instantly filter your dashboard overview by year, month, and one or more categories to drill down into your spending.
+
 📤 Versatile Data Export: Download your transaction data in multiple formats (CSV, Excel, PDF). Choose from pre-set time periods like "This Week," "Last Month," or a custom date range.
+
 🎨 Modern UI: A clean, stylish, and responsive user interface built with Streamlit, featuring custom styling for a polished user experience.
+
 ⚡ Smart Caching: Gemini API calls for AI parsing are cached in the database, which reduces API costs and provides faster responses for repeated queries.
 
 
@@ -17,7 +24,9 @@ expense-tracker/
 ├── README.md
 ├── requirements.txt
 ├── main.py
+
 ├── data/
+
 └── src/
 ├── auth.py
 ├── config.py
