@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from typing import Optional
 import calendar
 
@@ -66,6 +66,13 @@ db_manager = components['db']
 # --- Sidebar ---
 with st.sidebar:
     st.title(f"👋 Welcome, {user['username'].capitalize()}")
+    
+    # Wallet Balance Display - This data will be used in the PDF export
+    wallet = db_manager.get_wallet_balances(user['id'])
+    if wallet:
+        st.metric("💳 UPI Balance", f"${wallet['upi_balance']:,.2f}")
+        st.metric("💵 Cash Balance", f"${wallet['cash_balance']:,.2f}")
+
     st.divider()
     st.header("📊 Dashboard Controls")
     view_mode = st.radio("Select View Mode", ["Monthly View", "Yearly View"], horizontal=True)
@@ -87,23 +94,18 @@ with st.sidebar:
 
 # --- Main Content Tabs ---
 st.title("📈 Expense Dashboard")
-tab1, tab2, tab3 = st.tabs(["📊 Overview", "➕ Add Expense", "📤 Export Data"])
+tab1, tab2, tab3, tab4 = st.tabs(["📊 Overview", "💰 My Wallet", "➕ Add Expense", "📤 Export Data"])
 
 # == OVERVIEW TAB ==
 with tab1:
-    # --- EDIT MODAL LOGIC ---
-    # Check if we are in "edit mode" from session state
     if "editing_expense_id" in st.session_state and st.session_state.editing_expense_id is not None:
         expense_id = st.session_state.editing_expense_id
         expense_to_edit = db_manager.get_expense_by_id(expense_id, user['id'])
-
         if expense_to_edit:
-            # st.dialog creates a modal window
             @st.dialog("Edit Transaction")
             def show_edit_form():
                 with st.form("edit_form"):
                     st.subheader(f"Editing: {expense_to_edit['title']}")
-
                     user_categories = db_manager.get_user_categories(user['id'])
                     combined_categories = sorted(list(set(DEFAULT_CATEGORIES + user_categories)))
                     
@@ -112,205 +114,181 @@ with tab1:
                     except ValueError:
                         combined_categories.append(expense_to_edit['category'])
                         current_category_index = len(combined_categories) - 1
-
-                    edited_category = st.selectbox("Category", combined_categories, index=current_category_index)
+                    
+                    c1, c2 = st.columns(2)
+                    edited_category = c1.selectbox("Category", combined_categories, index=current_category_index)
+                    edited_payment = c2.selectbox("Payment Method", ["UPI", "Cash"], index=["UPI", "Cash"].index(expense_to_edit.get('payment_method', 'Cash')))
+                    
                     edited_title = st.text_input("Title/Description", value=expense_to_edit['title'])
                     edited_amount = st.number_input("Amount", min_value=0.01, value=expense_to_edit['amount'], format="%.2f")
                     edited_date = st.date_input("Date", value=pd.to_datetime(expense_to_edit['date']))
-                    edited_notes = st.text_area("Notes (Optional)", value=expense_to_edit['notes'])
+                    edited_notes = st.text_area("Notes (Optional)", value=expense_to_edit.get('notes', ''))
 
                     if st.form_submit_button("💾 Save Changes", use_container_width=True):
                         updated_data = {
-                            "category": edited_category,
-                            "title": edited_title,
-                            "amount": edited_amount,
-                            "date": edited_date,
-                            "notes": edited_notes,
+                            "category": edited_category, "title": edited_title,
+                            "amount": edited_amount, "date": edited_date,
+                            "notes": edited_notes, "payment_method": edited_payment
                         }
-                        if db_manager.update_expense(expense_id, user['id'], updated_data):
+                        update_result = db_manager.update_expense(expense_id, user['id'], updated_data)
+                        if not update_result:
                             st.toast("Transaction updated successfully!")
                             del st.session_state.editing_expense_id
                             st.rerun()
-                        else:
-                            st.error("Failed to update transaction.")
-            
+                        else: st.error(update_result)
             show_edit_form()
 
-    # --- REGULAR OVERVIEW DISPLAY ---
-    start_date, end_date = None, None
+    year_int = int(selected_year)
     if view_mode == "Monthly View" and selected_month is not None:
-        year_int = int(selected_year)
         _, last_day = calendar.monthrange(year_int, selected_month)
-        start_date = datetime(year_int, selected_month, 1).date()
-        end_date = datetime(year_int, selected_month, last_day).date()
-        month_name = calendar.month_name[selected_month]
-        st.subheader(f"Showing Overview for {month_name} {selected_year}")
-    elif view_mode == "Yearly View":
-        year_int = int(selected_year)
-        start_date = datetime(year_int, 1, 1).date()
-        end_date = datetime(year_int, 12, 31).date()
-        st.subheader(f"Showing Overview for the Year {selected_year}")
-    
+        start_date, end_date = date(year_int, selected_month, 1), date(year_int, selected_month, last_day)
+        st.subheader(f"Overview for {calendar.month_name[selected_month]} {selected_year}")
+    else:
+        start_date, end_date = date(year_int, 1, 1), date(year_int, 12, 31)
+        st.subheader(f"Overview for the Year {selected_year}")
     st.divider()
-    
-    dashboard_df = db_manager.get_filtered_expenses(
-        user_id=user['id'], start_date=start_date, end_date=end_date,
-        categories=selected_categories, amount_range=(0, float('inf'))
-    )
+
+    dashboard_df = db_manager.get_filtered_expenses(user['id'], start_date, end_date, selected_categories, (0, float('inf')))
 
     if dashboard_df.empty:
         st.info("No expenses found for the selected period and categories.")
     else:
-        total_expense = dashboard_df['amount'].sum()
-        avg_expense = dashboard_df['amount'].mean()
+        total_expense, avg_expense = dashboard_df['amount'].sum(), dashboard_df['amount'].mean()
         top_category = dashboard_df.groupby('category')['amount'].sum().idxmax()
-        
         c1, c2, c3 = st.columns(3)
-        c1.metric(f"💸 Total Expenses", f"${total_expense:,.2f}")
-        c2.metric("📊 Avg. Transaction", f"${avg_expense:,.2f}")
-        c3.metric("🏆 Top Category", top_category)
+        c1.metric("💸 Total Expenses", f"${total_expense:,.2f}"); c2.metric("📊 Avg. Transaction", f"${avg_expense:,.2f}"); c3.metric("🏆 Top Category", top_category)
         st.divider()
-
-        c1, c2 = st.columns(2)
-        with c1:
-            category_dist = dashboard_df.groupby('category')['amount'].sum()
-            fig_pie = px.pie(category_dist, values='amount', names=category_dist.index, title="Expense Distribution")
-            st.plotly_chart(fig_pie, use_container_width=True)
-        with c2:
-            if view_mode == "Monthly View":
-                daily_trend = dashboard_df.groupby(dashboard_df['date'].dt.date)['amount'].sum().reset_index()
-                fig_trend = px.line(daily_trend, x='date', y='amount', title="Daily Spending Trend", markers=True)
-            else:
-                dashboard_df['month'] = dashboard_df['date'].dt.strftime('%b')
-                monthly_trend = dashboard_df.groupby('month')['amount'].sum().reindex(calendar.month_abbr[1:]).fillna(0).reset_index()
-                fig_trend = px.bar(monthly_trend, x='month', y='amount', title="Monthly Spending Trend")
-            st.plotly_chart(fig_trend, use_container_width=True)
         
+        st.subheader("Visualizations")
+        col1, col2 = st.columns(2)
+        category_dist = dashboard_df.groupby('category')['amount'].sum().sort_values(ascending=False)
+        with col1:
+            fig_pie = px.pie(category_dist, values='amount', names=category_dist.index, title="Expense Distribution by Category")
+            fig_pie.update_traces(textposition='inside', textinfo='percent+label')
+            st.plotly_chart(fig_pie, use_container_width=True)
+        with col2:
+            fig_bar = px.bar(category_dist, x=category_dist.index, y='amount', title="Total Spending per Category", labels={'amount':'Total Amount ($)', 'index':'Category'})
+            st.plotly_chart(fig_bar, use_container_width=True)
+
+        if view_mode == "Monthly View":
+            trend_df = dashboard_df.groupby(dashboard_df['date'].dt.date)['amount'].sum().reset_index()
+            fig_trend = px.line(trend_df, x='date', y='amount', title="Daily Spending Trend", markers=True)
+        else:
+            dashboard_df['month'] = dashboard_df['date'].dt.strftime('%b')
+            trend_df = dashboard_df.groupby('month')['amount'].sum().reindex(calendar.month_abbr[1:]).fillna(0).reset_index()
+            fig_trend = px.bar(trend_df, x='month', y='amount', title="Monthly Spending Trend")
+        st.plotly_chart(fig_trend, use_container_width=True)
+
         with st.expander("View and Manage Transactions", expanded=True):
-            header_cols = st.columns((2, 3, 5, 2, 1, 1))
-            header_cols[0].write("**Date**")
-            header_cols[1].write("**Category**")
-            header_cols[2].write("**Title**")
-            header_cols[3].write("**Amount**")
-            header_cols[4].write("**Actions**")
+            header_cols = st.columns((2, 3, 5, 2, 2, 1, 1))
+            headers = ["Date", "Category", "Title", "Amount", "Method", "Actions", ""]
+            for i, col in enumerate(header_cols):
+                if headers[i]: col.write(f"**{headers[i]}**")
             st.markdown("---")
+            for _, row in dashboard_df.iterrows():
+                cols = st.columns((2, 3, 5, 2, 2, 1, 1))
+                cols[0].write(row['date'].strftime('%Y-%m-%d')); cols[1].write(row['category']); cols[2].write(row['title'])
+                cols[3].write(f"${row['amount']:,.2f}")
+                method = row.get('payment_method', 'N/A')
+                icon = "💳" if method == 'UPI' else "💵"
+                cols[4].write(f"{icon} {method}")
+                if cols[5].button("✏️", key=f"edit_{row['id']}", help="Edit"): st.session_state.editing_expense_id = row['id']; st.rerun()
+                if cols[6].button("🗑️", key=f"delete_{row['id']}", help="Delete"):
+                    if db_manager.delete_expense(row['id'], user['id']): st.toast("Deleted!"); st.rerun()
+                    else: st.error("Failed to delete.")
 
-            for index, row in dashboard_df.iterrows():
-                col1, col2, col3, col4, col5, col6 = st.columns((2, 3, 5, 2, 1, 1))
-                with col1:
-                    st.write(row['date'].strftime('%Y-%m-%d'))
-                with col2:
-                    st.write(row['category'])
-                with col3:
-                    st.write(row['title'])
-                with col4:
-                    st.write(f"${row['amount']:,.2f}")
-                with col5:
-                    if st.button("✏️", key=f"edit_{row['id']}", help="Edit this transaction"):
-                        st.session_state.editing_expense_id = row['id']
-                        st.rerun()
-                with col6:
-                    if st.button("🗑️", key=f"delete_{row['id']}", help="Delete this transaction"):
-                        success = db_manager.delete_expense(expense_id=row['id'], user_id=user['id'])
-                        if success:
-                            st.toast("Transaction deleted successfully!")
-                            if "editing_expense_id" in st.session_state and st.session_state.editing_expense_id == row['id']:
-                                del st.session_state.editing_expense_id
-                            st.rerun()
-                        else:
-                            st.error("Failed to delete transaction.")
-
-# == ADD EXPENSE TAB ==
 with tab2:
+    st.header("💰 My Wallet")
+    st.info("Set your current available balances. Transactions will automatically deduct from these amounts.")
+    current_wallet = db_manager.get_wallet_balances(user['id'])
+    with st.form("wallet_form"):
+        st.subheader("Update Balances")
+        upi_bal = st.number_input("UPI Balance ($)", min_value=0.0, value=current_wallet.get('upi_balance', 0.0), format="%.2f")
+        cash_bal = st.number_input("Cash Balance ($)", min_value=0.0, value=current_wallet.get('cash_balance', 0.0), format="%.2f")
+        if st.form_submit_button("Save Wallet Balances", use_container_width=True):
+            if db_manager.set_wallet_balances(user['id'], upi_bal, cash_bal): st.success("Wallet updated!"); st.rerun()
+            else: st.error("Failed to update wallet.")
+
+with tab3:
     st.header("Add a New Expense")
     add_tab1, add_tab2, add_tab3 = st.tabs(["🧠 Smart Add (AI)", "🎤 Voice Add", "✍️ Manual Add"])
     with add_tab1:
         with st.form("smart_add_form", clear_on_submit=True):
-            text_input = st.text_input("Describe your expense")
+            text_input = st.text_input("Describe your expense (e.g., '25 dollars for lunch with card')")
             if st.form_submit_button("✨ Parse and Add") and text_input:
                 with st.spinner("🤖 AI is processing..."):
                     expense_data = components['gemini'].parse_expense_input(text_input)
                     if expense_data:
                         expense_data['user_id'] = user['id']
-                        db_manager.save_expense(expense_data)
-                        st.success("Saved!"); st.rerun()
-                    else: st.error("AI could not parse the input.")
+                        result = db_manager.save_expense(expense_data)
+                        if not result: st.success("Saved!"); st.rerun()
+                        else: st.error(result)
+                    else: st.error("AI could not parse input. Please be more specific.")
     with add_tab2:
         if MICROPHONE_AVAILABLE:
-            st.info("Set the thresholds below, then click record.")
-            with st.expander("🎙️ Voice Recognition Settings", expanded=True):
-                st.markdown("""
-                - **Speaking Threshold:** Higher values ignore more background noise.
-                - **Pause Threshold:** Higher values let you pause longer while speaking.
-                """)
-                energy_threshold = st.slider("Speaking Threshold (Energy)", 50, 4000, 300, 50)
-                pause_threshold = st.slider("Pause Threshold (seconds)", 0.5, 3.0, 0.8, 0.1)
-                st.subheader("Advanced Timing")
-                c1, c2 = st.columns(2)
-                timeout = c1.number_input("Listening Timeout (s)", 5, 30, 10)
-                phrase_limit = c2.number_input("Phrase Time Limit (s)", 5, 60, 15, help="Maximum length of a single voice command.")
+            st.info("Say something like 'Dinner for 30 dollars paid with cash'.")
+            with st.expander("🎙️ Voice Settings"):
+                energy = st.slider("Energy Threshold", 50, 4000, 300, 50, key="voice_e")
+                pause = st.slider("Pause Threshold (s)", 0.5, 3.0, 0.8, 0.1, key="voice_p")
             if st.button("🎤 Start Recording", use_container_width=True):
-                with st.spinner("Listening... Please start speaking."):
-                    voice_result = components['voice'].recognize_speech(
-                        energy_threshold=energy_threshold, pause_threshold=pause_threshold,
-                        timeout=timeout, phrase_limit=phrase_limit
-                    )
-                if voice_result['status'] == 'success':
-                    st.info(f"Recognized: *{voice_result['text']}*")
+                with st.spinner("Listening..."):
+                    voice = components['voice'].recognize_speech(energy_threshold=energy, pause_threshold=pause)
+                if voice['status'] == 'success':
+                    st.info(f"Recognized: *{voice['text']}*")
                     with st.spinner("🤖 AI is processing..."):
-                        expense_data = components['gemini'].parse_expense_input(voice_result['text'])
+                        expense_data = components['gemini'].parse_expense_input(voice['text'])
                         if expense_data:
                             expense_data['user_id'] = user['id']
-                            db_manager.save_expense(expense_data)
-                            st.success(f"Saved: {expense_data['title']} (${expense_data['amount']})"); st.rerun()
-                        else: st.error("AI could not parse the input from your speech.")
-                else: st.error(f"Recognition failed: {voice_result['error']}")
-        else:
-            st.warning("🎤 Voice input is not available on this environment (e.g., Streamlit Cloud). Please use Smart Add or Manual Add.")
-            st.info("To enable voice input, run this app on your local machine.")
+                            result = db_manager.save_expense(expense_data)
+                            if not result: st.success(f"Saved: {expense_data['title']}!"); st.rerun()
+                            else: st.error(result)
+                        else: st.error("AI could not parse speech.")
+                else: st.error(f"Recognition failed: {voice['error']}")
+        else: st.warning("🎤 Voice input not available.")
     with add_tab3:
         with st.form("manual_add_form", clear_on_submit=True):
-            user_categories = db_manager.get_user_categories(user['id'])
-            combined_categories = sorted(list(set(DEFAULT_CATEGORIES + user_categories)))
-            category = st.selectbox("Category", combined_categories + ["+ Add New Category"])
-            if category == "+ Add New Category": category = st.text_input("New Category Name")
+            c1, c2 = st.columns(2)
+            category = c1.selectbox("Category", sorted(list(set(DEFAULT_CATEGORIES+db_manager.get_user_categories(user['id'])))) + ["+ Add New Category"])
+            if category == "+ Add New Category": category = c1.text_input("New Category Name")
+            payment_method = c2.selectbox("Payment Method", ["UPI", "Cash"])
             title = st.text_input("Title/Description")
             amount = st.number_input("Amount", 0.01, format="%.2f")
-            date = st.date_input("Date", datetime.now().date())
+            date_input = st.date_input("Date", datetime.now().date())
             notes = st.text_area("Notes (Optional)")
-            if st.form_submit_button("💾 Save Manually") and title and amount and category:
-                expense_data = {'user_id': user['id'], 'category': category, 'title': title, 'amount': amount, 'date': date, 'notes': notes}
-                db_manager.save_expense(expense_data)
-                st.success("Saved!"); st.rerun()
+            if st.form_submit_button("💾 Save Manually"):
+                if title and amount and category and category != "+ Add New Category":
+                    expense_data = {'user_id': user['id'], 'category': category, 'title': title, 'amount': amount, 'date': date_input, 'notes': notes, 'payment_method': payment_method}
+                    result = db_manager.save_expense(expense_data)
+                    if not result: st.success("Saved!"); st.rerun()
+                    else: st.error(result)
+                else: st.warning("Please fill in all required fields.")
 
-# == EXPORT TAB ==
-with tab3:
+with tab4:
     st.header("Export Your Data")
     export_period = st.selectbox("Select Export Period", ["Filtered Range", "This Week", "Last Week", "This Month", "Last Month", "This Year"])
-    export_start_date, export_end_date = None, None
+    today = datetime.now().date()
     if export_period == "Filtered Range":
-        st.caption("Select a custom date range for your export.")
         c1, c2 = st.columns(2)
-        export_start_date = c1.date_input("From", datetime.now().date() - timedelta(days=30), key="export_start")
-        export_end_date = c2.date_input("To", datetime.now().date(), key="export_end")
-    else:
-        today = datetime.now().date()
-        if export_period == "This Week":
-            export_start_date, export_end_date = today - timedelta(days=today.weekday()), today
-        elif export_period == "Last Week":
-            end_of_last_week = today - timedelta(days=today.weekday() + 1)
-            export_start_date, export_end_date = end_of_last_week - timedelta(days=6), end_of_last_week
-        elif export_period == "This Month":
-            export_start_date, export_end_date = today.replace(day=1), today
-        elif export_period == "Last Month":
-            end_of_last_month = today.replace(day=1) - timedelta(days=1)
-            export_start_date, export_end_date = end_of_last_month.replace(day=1), end_of_last_month
-        elif export_period == "This Year":
-            export_start_date, export_end_date = today.replace(month=1, day=1), today
-    all_user_categories = db_manager.get_user_categories(user['id'])
-    export_df = db_manager.get_filtered_expenses(user_id=user['id'], start_date=export_start_date, end_date=export_end_date, categories=all_user_categories, amount_range=(0, float('inf')))
+        export_start_date = c1.date_input("From", today - timedelta(days=30), key="export_start")
+        export_end_date = c2.date_input("To", today, key="export_end")
+    elif export_period == "This Week":
+        export_start_date, export_end_date = today - timedelta(days=today.weekday()), today
+    elif export_period == "Last Week":
+        end_of_last_week = today - timedelta(days=today.weekday() + 1)
+        export_start_date = end_of_last_week - timedelta(days=6), end_of_last_week
+    elif export_period == "This Month":
+        export_start_date = today.replace(day=1)
+        export_end_date = today
+    elif export_period == "Last Month":
+        end_of_last_month = today.replace(day=1) - timedelta(days=1)
+        export_start_date = end_of_last_month.replace(day=1)
+        export_end_date = end_of_last_month
+    else: # This Year
+        export_start_date, export_end_date = today.replace(month=1, day=1), today
+
+    export_df = db_manager.get_filtered_expenses(user['id'], export_start_date, export_end_date, all_user_categories, (0, float('inf')))
     if export_df.empty:
-        st.warning(f"No data to export for the selected period: **{export_period}**.")
+        st.warning(f"No data to export for the period: **{export_period}**.")
     else:
         st.info(f"Preparing to export **{len(export_df)}** transactions from **{export_start_date}** to **{export_end_date}**.")
         c1, c2, c3 = st.columns(3)
@@ -318,4 +296,8 @@ with tab3:
         c1.download_button("📄 Download as CSV", components['export'].export_to_csv(export_df), f"expenses_{user['username']}_{file_period_str}.csv", "text/csv", use_container_width=True)
         excel_data = components['export'].export_to_excel(export_df)
         c2.download_button("📊 Download as Excel", excel_data.getvalue(), f"expenses_{user['username']}_{file_period_str}.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True)
-        c3.download_button("📑 Download PDF Report", components['export'].export_to_pdf(export_df, user), f"report_{user['username']}_{file_period_str}.pdf", "application/pdf", use_container_width=True)
+        
+        # --- MODIFIED PDF BUTTON ---
+        # We now pass the 'wallet' dictionary fetched earlier to the PDF export function
+        pdf_bytes = components['export'].export_to_pdf(export_df, user, wallet)
+        c3.download_button("📑 Download PDF Report", pdf_bytes, f"report_{user['username']}_{file_period_str}.pdf", "application/pdf", use_container_width=True)

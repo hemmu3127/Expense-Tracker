@@ -3,7 +3,7 @@ import sqlite3
 import pandas as pd
 import hashlib
 import logging
-from datetime import datetime
+from datetime import datetime, date
 from pathlib import Path
 from contextlib import contextmanager
 import threading
@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 logger = logging.getLogger(__name__)
 
 class DatabaseManager:
-    """Manages SQLite database operations with thread safety."""
+    """Manages SQLite database operations with thread safety and wallet integration."""
     def __init__(self, db_path: str):
         self.db_path = Path(db_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
@@ -21,8 +21,8 @@ class DatabaseManager:
         self._init_database()
 
     def _init_database(self):
-        """Initialize database with required tables and indexes."""
-        with self.get_connection() as conn:
+        """Initialize or migrate the database with required tables and columns."""
+        with self.lock, self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS users (
@@ -33,31 +33,41 @@ class DatabaseManager:
                 )
             ''')
             cursor.execute('''
-                CREATE TABLE IF NOT EXISTS expenses (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_id INTEGER NOT NULL,
-                    category TEXT NOT NULL,
-                    title TEXT NOT NULL,
-                    amount REAL NOT NULL,
-                    date DATE NOT NULL,
-                    notes TEXT,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
-                )
-            ''')
-            cursor.execute('''
                 CREATE TABLE IF NOT EXISTS gemini_cache (
                     prompt_hash TEXT PRIMARY KEY,
                     response_json TEXT NOT NULL,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             ''')
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS wallets (
+                    user_id INTEGER PRIMARY KEY,
+                    upi_balance REAL NOT NULL DEFAULT 0,
+                    cash_balance REAL NOT NULL DEFAULT 0,
+                    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+                )
+            ''')
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS expenses (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL,
+                    category TEXT NOT NULL, title TEXT NOT NULL, amount REAL NOT NULL,
+                    date DATE NOT NULL, notes TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+                )
+            ''')
+            
+            cursor.execute("PRAGMA table_info(expenses)")
+            columns = [col['name'] for col in cursor.fetchall()]
+            if 'payment_method' not in columns:
+                cursor.execute("ALTER TABLE expenses ADD COLUMN payment_method TEXT NOT NULL DEFAULT 'Cash'")
+                logger.info("Migrated 'expenses' table: added 'payment_method' column.")
+
             conn.commit()
-            logger.info("Database initialized successfully.")
+            logger.info("Database initialized/validated successfully.")
 
     @contextmanager
     def get_connection(self):
-        conn = sqlite3.connect(self.db_path, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
+        conn = sqlite3.connect(self.db_path, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES, timeout=10)
         conn.row_factory = sqlite3.Row
         try:
             yield conn
@@ -71,9 +81,12 @@ class DatabaseManager:
         password_hash = self._hash_value(password)
         with self.lock, self.get_connection() as conn:
             try:
-                conn.execute("INSERT INTO users (username, password_hash) VALUES (?, ?)", (username, password_hash))
+                cursor = conn.cursor()
+                cursor.execute("INSERT INTO users (username, password_hash) VALUES (?, ?)", (username, password_hash))
+                user_id = cursor.lastrowid
+                cursor.execute("INSERT OR IGNORE INTO wallets (user_id, upi_balance, cash_balance) VALUES (?, 0, 0)", (user_id,))
                 conn.commit()
-                logger.info(f"User '{username}' created successfully.")
+                logger.info(f"User '{username}' and their wallet created successfully.")
                 return True
             except sqlite3.IntegrityError:
                 logger.warning(f"Failed to create user '{username}': username likely already exists.")
@@ -84,76 +97,113 @@ class DatabaseManager:
         with self.get_connection() as conn:
             user = conn.execute("SELECT * FROM users WHERE username = ? AND password_hash = ?", (username, password_hash)).fetchone()
             if user:
-                logger.info(f"User '{username}' authenticated successfully.")
+                with self.lock:
+                    conn.execute("INSERT OR IGNORE INTO wallets (user_id) VALUES (?)", (user['id'],))
+                    conn.commit()
                 return dict(user)
-            else:
-                logger.warning(f"Failed authentication attempt for user '{username}'.")
-                return None
+            return None
 
-    def save_expense(self, expense_data: dict):
+    def save_expense(self, expense_data: dict) -> str:
+        user_id = expense_data['user_id']
+        amount = expense_data['amount']
+        method = expense_data.get('payment_method', 'Cash')
+        
         with self.lock, self.get_connection() as conn:
-            conn.execute(
-                "INSERT INTO expenses (user_id, category, title, amount, date, notes) VALUES (?, ?, ?, ?, ?, ?)",
-                (expense_data['user_id'], expense_data['category'], expense_data['title'], expense_data['amount'], expense_data['date'], expense_data.get('notes', ''))
-            )
-            conn.commit()
-            logger.info(f"Saved new expense '{expense_data['title']}' for user {expense_data['user_id']}.")
+            cursor = conn.cursor()
+            wallet = cursor.execute("SELECT upi_balance, cash_balance FROM wallets WHERE user_id = ?", (user_id,)).fetchone()
+            if method == 'UPI' and wallet['upi_balance'] < amount:
+                return f"Insufficient UPI balance. Current: ${wallet['upi_balance']:.2f}, Required: ${amount:.2f}."
+            if method == 'Cash' and wallet['cash_balance'] < amount:
+                return f"Insufficient Cash balance. Current: ${wallet['cash_balance']:.2f}, Required: ${amount:.2f}."
+
+            try:
+                if method == 'UPI':
+                    cursor.execute("UPDATE wallets SET upi_balance = upi_balance - ? WHERE user_id = ?", (amount, user_id))
+                else:
+                    cursor.execute("UPDATE wallets SET cash_balance = cash_balance - ? WHERE user_id = ?", (amount, user_id))
+
+                cursor.execute(
+                    "INSERT INTO expenses (user_id, category, title, amount, date, notes, payment_method) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    (user_id, expense_data['category'], expense_data['title'], amount, expense_data['date'], expense_data.get('notes', ''), method)
+                )
+                conn.commit()
+                return ""
+            except Exception as e:
+                conn.rollback()
+                logger.error(f"Transaction failed in save_expense: {e}")
+                return "A database error occurred. Transaction rolled back."
 
     def delete_expense(self, expense_id: int, user_id: int) -> bool:
         with self.lock, self.get_connection() as conn:
             cursor = conn.cursor()
-            cursor.execute("DELETE FROM expenses WHERE id = ? AND user_id = ?", (expense_id, user_id))
-            conn.commit()
-            if cursor.rowcount > 0:
-                logger.info(f"User {user_id} deleted expense {expense_id}.")
+            expense = cursor.execute("SELECT amount, payment_method FROM expenses WHERE id = ? AND user_id = ?", (expense_id, user_id)).fetchone()
+            if not expense: return False
+            try:
+                if expense['payment_method'] == 'UPI':
+                    cursor.execute("UPDATE wallets SET upi_balance = upi_balance + ? WHERE user_id = ?", (expense['amount'], user_id))
+                else:
+                    cursor.execute("UPDATE wallets SET cash_balance = cash_balance + ? WHERE user_id = ?", (expense['amount'], user_id))
+                
+                cursor.execute("DELETE FROM expenses WHERE id = ? AND user_id = ?", (expense_id, user_id))
+                conn.commit()
                 return True
-            else:
-                logger.warning(f"User {user_id} failed to delete non-existent or unauthorized expense {expense_id}.")
+            except Exception as e:
+                conn.rollback()
+                logger.error(f"Transaction failed in delete_expense: {e}")
                 return False
 
-    def update_expense(self, expense_id: int, user_id: int, updated_data: dict) -> bool:
-        """Updates an existing expense, ensuring it belongs to the correct user."""
+    def update_expense(self, expense_id: int, user_id: int, updated_data: dict) -> str:
         with self.lock, self.get_connection() as conn:
             cursor = conn.cursor()
-            cursor.execute(
-                """
-                UPDATE expenses
-                SET category = ?, title = ?, amount = ?, date = ?, notes = ?
-                WHERE id = ? AND user_id = ?
-                """,
-                (
-                    updated_data['category'],
-                    updated_data['title'],
-                    updated_data['amount'],
-                    updated_data['date'],
-                    updated_data.get('notes', ''),
-                    expense_id,
-                    user_id
-                )
-            )
-            conn.commit()
-            if cursor.rowcount > 0:
-                logger.info(f"User {user_id} updated expense {expense_id}.")
-                return True
-            else:
-                logger.warning(f"User {user_id} failed to update non-existent or unauthorized expense {expense_id}.")
-                return False
-    
-    def get_expense_by_id(self, expense_id: int, user_id: int) -> Optional[dict]:
-        """Fetches a single expense by its ID, ensuring it belongs to the user."""
-        with self.get_connection() as conn:
-            expense_row = conn.execute(
-                "SELECT id, user_id, category, title, amount, date, notes FROM expenses WHERE id = ? AND user_id = ?",
-                (expense_id, user_id)
-            ).fetchone()
-            
-            if not expense_row:
-                return None
+            old_expense = cursor.execute("SELECT amount, payment_method FROM expenses WHERE id = ? AND user_id = ?", (expense_id, user_id)).fetchone()
+            if not old_expense: return "Transaction not found."
 
-            expense_dict = dict(expense_row)
-            if isinstance(expense_dict['date'], str):
-                 expense_dict['date'] = datetime.strptime(expense_dict['date'], '%Y-%m-%d').date()
-            return expense_dict
+            wallet = cursor.execute("SELECT upi_balance, cash_balance FROM wallets WHERE user_id = ?", (user_id,)).fetchone()
+            temp_upi, temp_cash = wallet['upi_balance'], wallet['cash_balance']
+
+            if old_expense['payment_method'] == 'UPI': temp_upi += old_expense['amount']
+            else: temp_cash += old_expense['amount']
+            
+            new_amount, new_method = updated_data['amount'], updated_data['payment_method']
+
+            if new_method == 'UPI' and temp_upi < new_amount: return f"Insufficient UPI balance for update. Available: ${temp_upi:.2f}, Required: ${new_amount:.2f}."
+            if new_method == 'Cash' and temp_cash < new_amount: return f"Insufficient Cash balance for update. Available: ${temp_cash:.2f}, Required: ${new_amount:.2f}."
+            
+            try:
+                if old_expense['payment_method'] == 'UPI':
+                    cursor.execute("UPDATE wallets SET upi_balance = upi_balance + ? WHERE user_id = ?", (old_expense['amount'], user_id))
+                else:
+                    cursor.execute("UPDATE wallets SET cash_balance = cash_balance + ? WHERE user_id = ?", (old_expense['amount'], user_id))
+
+                if new_method == 'UPI':
+                    cursor.execute("UPDATE wallets SET upi_balance = upi_balance - ? WHERE user_id = ?", (new_amount, user_id))
+                else:
+                    cursor.execute("UPDATE wallets SET cash_balance = cash_balance - ? WHERE user_id = ?", (new_amount, user_id))
+
+                cursor.execute(
+                    "UPDATE expenses SET category=?, title=?, amount=?, date=?, notes=?, payment_method=? WHERE id=? AND user_id=?",
+                    (updated_data['category'], updated_data['title'], new_amount, updated_data['date'], updated_data.get('notes', ''), new_method, expense_id, user_id)
+                )
+                conn.commit()
+                return ""
+            except Exception as e:
+                conn.rollback()
+                logger.error(f"Transaction failed in update_expense: {e}")
+                return "A database error occurred during update. Transaction rolled back."
+
+    def get_wallet_balances(self, user_id: int) -> Optional[dict]:
+        with self.get_connection() as conn:
+            wallet = conn.execute("SELECT upi_balance, cash_balance FROM wallets WHERE user_id = ?", (user_id,)).fetchone()
+            return dict(wallet) if wallet else {'upi_balance': 0.0, 'cash_balance': 0.0}
+
+    def set_wallet_balances(self, user_id: int, upi_balance: float, cash_balance: float) -> bool:
+        with self.lock, self.get_connection() as conn:
+            try:
+                conn.execute("UPDATE wallets SET upi_balance = ?, cash_balance = ? WHERE user_id = ?", (upi_balance, cash_balance, user_id))
+                conn.commit()
+                return True
+            except Exception:
+                return False
 
     def get_filtered_expenses(self, user_id: int, start_date, end_date, categories: list, amount_range: tuple) -> pd.DataFrame:
         query = "SELECT * FROM expenses WHERE user_id = ? AND date BETWEEN ? AND ?"
@@ -169,32 +219,38 @@ class DatabaseManager:
             df = pd.read_sql_query(query, conn, params=params, parse_dates=['date'])
         return df
 
+    def get_expense_by_id(self, expense_id: int, user_id: int) -> Optional[dict]:
+        with self.get_connection() as conn:
+            expense_row = conn.execute("SELECT * FROM expenses WHERE id = ? AND user_id = ?", (expense_id, user_id)).fetchone()
+            if not expense_row: return None
+            expense_dict = dict(expense_row)
+            if isinstance(expense_dict.get('date'), str):
+                 expense_dict['date'] = datetime.strptime(expense_dict['date'], '%Y-%m-%d').date()
+            return expense_dict
+            
     def get_user_categories(self, user_id: int) -> list:
         with self.get_connection() as conn:
             categories = conn.execute("SELECT DISTINCT category FROM expenses WHERE user_id = ? ORDER BY category", (user_id,)).fetchall()
             return [cat['category'] for cat in categories]
             
     def get_user_expense_years(self, user_id: int) -> list:
-        """Gets a list of unique years from a user's expenses."""
         with self.get_connection() as conn:
             years = conn.execute(
                 "SELECT DISTINCT STRFTIME('%Y', date) as year FROM expenses WHERE user_id = ? ORDER BY year DESC",
                 (user_id,)
             ).fetchall()
             return [row['year'] for row in years]
-
-    def get_max_expense_amount(self, user_id: int) -> float:
-        with self.get_connection() as conn:
-            result = conn.execute("SELECT MAX(amount) as max_amount FROM expenses WHERE user_id = ?", (user_id,)).fetchone()
-            return result['max_amount'] or 1000.0
-
+            
+    # --- CACHING METHODS (Restored) ---
     def get_cached_response(self, prompt: str) -> Optional[str]:
+        """Retrieves a cached Gemini response from the database."""
         prompt_hash = self._hash_value(prompt)
         with self.get_connection() as conn:
             result = conn.execute("SELECT response_json FROM gemini_cache WHERE prompt_hash = ?", (prompt_hash,)).fetchone()
             return result['response_json'] if result else None
 
     def cache_response(self, prompt: str, response: str):
+        """Saves a Gemini response to the cache table."""
         prompt_hash = self._hash_value(prompt)
         with self.lock, self.get_connection() as conn:
             conn.execute("INSERT OR REPLACE INTO gemini_cache (prompt_hash, response_json) VALUES (?, ?)", (prompt_hash, response))
