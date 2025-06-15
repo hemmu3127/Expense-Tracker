@@ -7,7 +7,7 @@ from datetime import datetime
 from pathlib import Path
 from contextlib import contextmanager
 import threading
-from typing import Optional
+from typing import Optional, List, Dict
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -19,17 +19,6 @@ class DatabaseManager:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.lock = threading.Lock()
         self._init_database()
-    
-    # Add this method inside the DatabaseManager class in src/database.py
-
-    def get_user_expense_years(self, user_id: int) -> list:
-        """Gets a list of unique years from a user's expenses."""
-        with self.get_connection() as conn:
-            years = conn.execute(
-                "SELECT DISTINCT STRFTIME('%Y', date) as year FROM expenses WHERE user_id = ? ORDER BY year DESC",
-                (user_id,)
-            ).fetchall()
-            return [row['year'] for row in years]
 
     def _init_database(self):
         """Initialize database with required tables and indexes."""
@@ -63,7 +52,6 @@ class DatabaseManager:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             ''')
-            # --- REMOVED: sessions table ---
             conn.commit()
             logger.info("Database initialized successfully.")
 
@@ -75,27 +63,7 @@ class DatabaseManager:
             yield conn
         finally:
             conn.close()
-    # Add this method inside the DatabaseManager class in src/database.py
 
-    def delete_expense(self, expense_id: int, user_id: int) -> bool:
-        """
-        Deletes a specific expense entry, ensuring it belongs to the user.
-        Returns True if deletion was successful, False otherwise.
-        """
-        with self.lock, self.get_connection() as conn:
-            cursor = conn.cursor()
-            cursor.execute(
-                "DELETE FROM expenses WHERE id = ? AND user_id = ?",
-                (expense_id, user_id)
-            )
-            conn.commit()
-            # The cursor.rowcount will be > 0 only if a row was actually deleted.
-            if cursor.rowcount > 0:
-                logger.info(f"User {user_id} deleted expense {expense_id}.")
-                return True
-            else:
-                logger.warning(f"User {user_id} failed to delete non-existent or unauthorized expense {expense_id}.")
-                return False
     def _hash_value(self, value: str) -> str:
         return hashlib.sha256(value.encode()).hexdigest()
 
@@ -105,17 +73,22 @@ class DatabaseManager:
             try:
                 conn.execute("INSERT INTO users (username, password_hash) VALUES (?, ?)", (username, password_hash))
                 conn.commit()
+                logger.info(f"User '{username}' created successfully.")
                 return True
             except sqlite3.IntegrityError:
+                logger.warning(f"Failed to create user '{username}': username likely already exists.")
                 return False
 
     def authenticate_user(self, username: str, password: str) -> Optional[dict]:
         password_hash = self._hash_value(password)
         with self.get_connection() as conn:
             user = conn.execute("SELECT * FROM users WHERE username = ? AND password_hash = ?", (username, password_hash)).fetchone()
-            return dict(user) if user else None
-
-    # --- REMOVED: All session management methods (create, validate, delete) ---
+            if user:
+                logger.info(f"User '{username}' authenticated successfully.")
+                return dict(user)
+            else:
+                logger.warning(f"Failed authentication attempt for user '{username}'.")
+                return None
 
     def save_expense(self, expense_data: dict):
         with self.lock, self.get_connection() as conn:
@@ -124,6 +97,63 @@ class DatabaseManager:
                 (expense_data['user_id'], expense_data['category'], expense_data['title'], expense_data['amount'], expense_data['date'], expense_data.get('notes', ''))
             )
             conn.commit()
+            logger.info(f"Saved new expense '{expense_data['title']}' for user {expense_data['user_id']}.")
+
+    def delete_expense(self, expense_id: int, user_id: int) -> bool:
+        with self.lock, self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM expenses WHERE id = ? AND user_id = ?", (expense_id, user_id))
+            conn.commit()
+            if cursor.rowcount > 0:
+                logger.info(f"User {user_id} deleted expense {expense_id}.")
+                return True
+            else:
+                logger.warning(f"User {user_id} failed to delete non-existent or unauthorized expense {expense_id}.")
+                return False
+
+    def update_expense(self, expense_id: int, user_id: int, updated_data: dict) -> bool:
+        """Updates an existing expense, ensuring it belongs to the correct user."""
+        with self.lock, self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                UPDATE expenses
+                SET category = ?, title = ?, amount = ?, date = ?, notes = ?
+                WHERE id = ? AND user_id = ?
+                """,
+                (
+                    updated_data['category'],
+                    updated_data['title'],
+                    updated_data['amount'],
+                    updated_data['date'],
+                    updated_data.get('notes', ''),
+                    expense_id,
+                    user_id
+                )
+            )
+            conn.commit()
+            if cursor.rowcount > 0:
+                logger.info(f"User {user_id} updated expense {expense_id}.")
+                return True
+            else:
+                logger.warning(f"User {user_id} failed to update non-existent or unauthorized expense {expense_id}.")
+                return False
+    
+    def get_expense_by_id(self, expense_id: int, user_id: int) -> Optional[dict]:
+        """Fetches a single expense by its ID, ensuring it belongs to the user."""
+        with self.get_connection() as conn:
+            expense_row = conn.execute(
+                "SELECT id, user_id, category, title, amount, date, notes FROM expenses WHERE id = ? AND user_id = ?",
+                (expense_id, user_id)
+            ).fetchone()
+            
+            if not expense_row:
+                return None
+
+            expense_dict = dict(expense_row)
+            if isinstance(expense_dict['date'], str):
+                 expense_dict['date'] = datetime.strptime(expense_dict['date'], '%Y-%m-%d').date()
+            return expense_dict
 
     def get_filtered_expenses(self, user_id: int, start_date, end_date, categories: list, amount_range: tuple) -> pd.DataFrame:
         query = "SELECT * FROM expenses WHERE user_id = ? AND date BETWEEN ? AND ?"
@@ -134,16 +164,24 @@ class DatabaseManager:
         if amount_range:
             query += " AND amount BETWEEN ? AND ?"
             params.extend(amount_range)
-        query += " ORDER BY date DESC"
+        query += " ORDER BY date DESC, id DESC"
         with self.get_connection() as conn:
             df = pd.read_sql_query(query, conn, params=params, parse_dates=['date'])
         return df
 
     def get_user_categories(self, user_id: int) -> list:
         with self.get_connection() as conn:
-            cursor = conn.cursor()
-            categories = cursor.execute("SELECT DISTINCT category FROM expenses WHERE user_id = ? ORDER BY category", (user_id,)).fetchall()
+            categories = conn.execute("SELECT DISTINCT category FROM expenses WHERE user_id = ? ORDER BY category", (user_id,)).fetchall()
             return [cat['category'] for cat in categories]
+            
+    def get_user_expense_years(self, user_id: int) -> list:
+        """Gets a list of unique years from a user's expenses."""
+        with self.get_connection() as conn:
+            years = conn.execute(
+                "SELECT DISTINCT STRFTIME('%Y', date) as year FROM expenses WHERE user_id = ? ORDER BY year DESC",
+                (user_id,)
+            ).fetchall()
+            return [row['year'] for row in years]
 
     def get_max_expense_amount(self, user_id: int) -> float:
         with self.get_connection() as conn:

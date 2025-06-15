@@ -82,6 +82,7 @@ with st.sidebar:
     st.divider()
     if st.button("🚪 Logout", use_container_width=True):
         auth_manager.logout()
+        st.success("You have been logged out.")
         st.rerun()
 
 # --- Main Content Tabs ---
@@ -90,6 +91,52 @@ tab1, tab2, tab3 = st.tabs(["📊 Overview", "➕ Add Expense", "📤 Export Dat
 
 # == OVERVIEW TAB ==
 with tab1:
+    # --- EDIT MODAL LOGIC ---
+    # Check if we are in "edit mode" from session state
+    if "editing_expense_id" in st.session_state and st.session_state.editing_expense_id is not None:
+        expense_id = st.session_state.editing_expense_id
+        expense_to_edit = db_manager.get_expense_by_id(expense_id, user['id'])
+
+        if expense_to_edit:
+            # st.dialog creates a modal window
+            @st.dialog("Edit Transaction")
+            def show_edit_form():
+                with st.form("edit_form"):
+                    st.subheader(f"Editing: {expense_to_edit['title']}")
+
+                    user_categories = db_manager.get_user_categories(user['id'])
+                    combined_categories = sorted(list(set(DEFAULT_CATEGORIES + user_categories)))
+                    
+                    try:
+                        current_category_index = combined_categories.index(expense_to_edit['category'])
+                    except ValueError:
+                        combined_categories.append(expense_to_edit['category'])
+                        current_category_index = len(combined_categories) - 1
+
+                    edited_category = st.selectbox("Category", combined_categories, index=current_category_index)
+                    edited_title = st.text_input("Title/Description", value=expense_to_edit['title'])
+                    edited_amount = st.number_input("Amount", min_value=0.01, value=expense_to_edit['amount'], format="%.2f")
+                    edited_date = st.date_input("Date", value=pd.to_datetime(expense_to_edit['date']))
+                    edited_notes = st.text_area("Notes (Optional)", value=expense_to_edit['notes'])
+
+                    if st.form_submit_button("💾 Save Changes", use_container_width=True):
+                        updated_data = {
+                            "category": edited_category,
+                            "title": edited_title,
+                            "amount": edited_amount,
+                            "date": edited_date,
+                            "notes": edited_notes,
+                        }
+                        if db_manager.update_expense(expense_id, user['id'], updated_data):
+                            st.toast("Transaction updated successfully!")
+                            del st.session_state.editing_expense_id
+                            st.rerun()
+                        else:
+                            st.error("Failed to update transaction.")
+            
+            show_edit_form()
+
+    # --- REGULAR OVERVIEW DISPLAY ---
     start_date, end_date = None, None
     if view_mode == "Monthly View" and selected_month is not None:
         year_int = int(selected_year)
@@ -139,9 +186,8 @@ with tab1:
                 fig_trend = px.bar(monthly_trend, x='month', y='amount', title="Monthly Spending Trend")
             st.plotly_chart(fig_trend, use_container_width=True)
         
-        # --- ENHANCEMENT: Interactive Raw Data list with Delete buttons ---
-        with st.expander("View and Manage Transactions"):
-            header_cols = st.columns((2, 3, 5, 2, 1))
+        with st.expander("View and Manage Transactions", expanded=True):
+            header_cols = st.columns((2, 3, 5, 2, 1, 1))
             header_cols[0].write("**Date**")
             header_cols[1].write("**Category**")
             header_cols[2].write("**Title**")
@@ -150,7 +196,7 @@ with tab1:
             st.markdown("---")
 
             for index, row in dashboard_df.iterrows():
-                col1, col2, col3, col4, col5 = st.columns((2, 3, 5, 2, 1))
+                col1, col2, col3, col4, col5, col6 = st.columns((2, 3, 5, 2, 1, 1))
                 with col1:
                     st.write(row['date'].strftime('%Y-%m-%d'))
                 with col2:
@@ -160,10 +206,16 @@ with tab1:
                 with col4:
                     st.write(f"${row['amount']:,.2f}")
                 with col5:
+                    if st.button("✏️", key=f"edit_{row['id']}", help="Edit this transaction"):
+                        st.session_state.editing_expense_id = row['id']
+                        st.rerun()
+                with col6:
                     if st.button("🗑️", key=f"delete_{row['id']}", help="Delete this transaction"):
                         success = db_manager.delete_expense(expense_id=row['id'], user_id=user['id'])
                         if success:
                             st.toast("Transaction deleted successfully!")
+                            if "editing_expense_id" in st.session_state and st.session_state.editing_expense_id == row['id']:
+                                del st.session_state.editing_expense_id
                             st.rerun()
                         else:
                             st.error("Failed to delete transaction.")

@@ -6,6 +6,7 @@ class AuthManager:
     """Manages user authentication and session state."""
     def __init__(self, db_manager):
         self.db = db_manager
+        # Initialize session state keys if they don't exist
         if 'authenticated' not in st.session_state:
             st.session_state.authenticated = False
         if 'user' not in st.session_state:
@@ -18,12 +19,18 @@ class AuthManager:
         return st.session_state.get('user')
 
     def login(self, username, password) -> bool:
-        """Attempts to log in a user by checking the database."""
+        """
+        Attempts to log in a user.
+        On success, sets session state and returns True.
+        On failure, clears session state and returns False.
+        """
         user = self.db.authenticate_user(username, password)
         if user:
             st.session_state.authenticated = True
             st.session_state.user = user
             return True
+        
+        # Explicitly clear state on failed login attempt
         st.session_state.authenticated = False
         st.session_state.user = None
         return False
@@ -32,9 +39,8 @@ class AuthManager:
         """Logs out the current user by clearing the session state."""
         st.session_state.authenticated = False
         st.session_state.user = None
-        st.success("You have been logged out.")
+        # The success message is shown in main.py for better control
 
     def register(self, username, password) -> bool:
+        """Registers a new user."""
         return self.db.create_user(username, password)
-
-    # --- REMOVED: check_remember_me_cookie method ---
