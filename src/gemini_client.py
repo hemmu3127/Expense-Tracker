@@ -15,7 +15,8 @@ logger = logging.getLogger(__name__)
 DEFAULT_CATEGORIES: List[str] = [
     "Food & Dining", "Groceries", "Transportation", "Housing", "Utilities",
     "Shopping", "Entertainment", "Health & Wellness", "Education", "Travel",
-    "Personal Care", "Gifts & Donations", "Kids", "Pets", "Business", "Miscellaneous"
+    "Personal Care", "Gifts & Donations", "Kids", "Pets", "Business", "Miscellaneous",
+    "Devotion","Stationary", "Subscriptions", "Insurance", "Taxes"
 ]
 
 class GeminiClient:
