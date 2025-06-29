@@ -71,37 +71,58 @@ expense-tracker/
 ```bash
 git clone https://github.com/hemmu3127/Expense-Tracker.git
 cd Expense-Tracker
+```
 
 2️⃣ Create a Virtual Environment
+```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
 3️⃣ Install FFmpeg
 Required for Whisper:
 
-macOS: brew install ffmpeg
+macOS: 
+```bash
+brew install ffmpeg
+```
 
-Windows: choco install ffmpeg or scoop install ffmpeg
+Windows: 
+``` bash
+choco install ffmpeg or scoop install ffmpeg
+```
 
 Linux (Debian/Ubuntu):
+```bash
 sudo apt update && sudo apt install ffmpeg
+```
 
 4️⃣ Install Python Dependencies
+```bash
 pip install -r requirements.txt
+```
 
 5️⃣ Configure Environment Variables
 Create .env:
+```bash 
 GOOGLE_API_KEY="YOUR_GEMINI_API_KEY_HERE"
+```
 
 ▶️ Run the App
+```bash
 streamlit run main.py
+```
 
 🚑 Troubleshooting
 If you see:
+``` bash
 RuntimeError related to torch and __path__._path
+```
 
 Run with file watcher disabled:
+``` bash
 streamlit run main.py --server.fileWatcherType none
+```
 
 📌 License
 MIT License. Feel free to contribute!
