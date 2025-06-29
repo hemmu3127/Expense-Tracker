@@ -45,6 +45,7 @@ A sophisticated, AI-powered expense tracking application built with **Streamlit*
 
 ## 🏗️ Project Structure
 
+```bash
 expense-tracker/
 ├── .streamlit/
 │ └── config.toml # Streamlit config
@@ -63,7 +64,7 @@ expense-tracker/
 ├── gemini_client.py
 ├── ui_components.py
 └── voice_processor.py
-
+```
 
 ## ⚙️ Setup and Installation
 
