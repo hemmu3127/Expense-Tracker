@@ -3,12 +3,18 @@ import pandas as pd
 from io import BytesIO
 from fpdf import FPDF
 from datetime import datetime
+import logging
+
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 class ExportManager:
     """Handles exporting data to various formats like CSV, Excel, and PDF."""
 
     def export_to_csv(self, df: pd.DataFrame) -> bytes:
         """Exports a DataFrame to a CSV file in memory. No changes needed."""
+        logger.info("Exporting DataFrame to CSV format.")
         return df.to_csv(index=False).encode('utf-8')
 
     def export_to_excel(self, df: pd.DataFrame) -> BytesIO:
@@ -16,6 +22,7 @@ class ExportManager:
         output = BytesIO()
         with pd.ExcelWriter(output, engine='openpyxl') as writer:
             df.to_excel(writer, index=False, sheet_name='Expenses')
+        logger.info("Exporting DataFrame to Excel format.")    
         return output
 
     # --- MODIFIED FUNCTION ---
@@ -72,5 +79,5 @@ class ExportManager:
             pdf.cell(col_widths[3], 10, f"${row['amount']:,.2f}", 1, 0, 'R')
             pdf.cell(col_widths[4], 10, str(row.get('payment_method', 'N/A')), 1, 0, 'C')
             pdf.ln()
-
+        logger.info("PDF export completed successfully.")
         return bytes(pdf.output())

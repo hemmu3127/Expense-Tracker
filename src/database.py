@@ -87,6 +87,7 @@ class DatabaseManager:
                 cursor.execute("INSERT OR IGNORE INTO wallets (user_id, upi_balance, cash_balance) VALUES (?, 0, 0)", (user_id,))
                 conn.commit()
                 logger.info(f"User '{username}' and their wallet created successfully.")
+                
                 return True
             except sqlite3.IntegrityError:
                 logger.warning(f"Failed to create user '{username}': username likely already exists.")
@@ -99,6 +100,7 @@ class DatabaseManager:
             if user:
                 with self.lock:
                     conn.execute("INSERT OR IGNORE INTO wallets (user_id) VALUES (?)", (user['id'],))
+                    logger.info(f"User '{username}' authenticated successfully.")
                     conn.commit()
                 return dict(user)
             return None
@@ -127,6 +129,7 @@ class DatabaseManager:
                     (user_id, expense_data['category'], expense_data['title'], amount, expense_data['date'], expense_data.get('notes', ''), method)
                 )
                 conn.commit()
+                logger.info(f"Expense saved successfully for user {user_id}. Amount: ${amount:.2f}, Method: {method}.")
                 return ""
             except Exception as e:
                 conn.rollback()
@@ -146,6 +149,7 @@ class DatabaseManager:
                 
                 cursor.execute("DELETE FROM expenses WHERE id = ? AND user_id = ?", (expense_id, user_id))
                 conn.commit()
+                logger.info(f"Expense {expense_id} deleted successfully for user {user_id}.")
                 return True
             except Exception as e:
                 conn.rollback()
@@ -194,6 +198,7 @@ class DatabaseManager:
     def get_wallet_balances(self, user_id: int) -> Optional[dict]:
         with self.get_connection() as conn:
             wallet = conn.execute("SELECT upi_balance, cash_balance FROM wallets WHERE user_id = ?", (user_id,)).fetchone()
+            logger.info(f"Retrieved wallet balances for user {user_id}: {wallet}")
             return dict(wallet) if wallet else {'upi_balance': 0.0, 'cash_balance': 0.0}
 
     def set_wallet_balances(self, user_id: int, upi_balance: float, cash_balance: float) -> bool:
@@ -201,6 +206,7 @@ class DatabaseManager:
             try:
                 conn.execute("UPDATE wallets SET upi_balance = ?, cash_balance = ? WHERE user_id = ?", (upi_balance, cash_balance, user_id))
                 conn.commit()
+                logger.info(f"Updated wallet balances for user {user_id}: UPI={upi_balance}, Cash={cash_balance}")
                 return True
             except Exception:
                 return False

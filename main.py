@@ -3,20 +3,46 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from datetime import datetime, timedelta, date
-from typing import Optional
 import calendar
+import logging
+import os
+import warnings
 
-# Import custom modules from src
+# --- 1. LOGGING CONFIGURATION ---
+# Create a logs directory if it doesn't exist
+if not os.path.exists('logs'):
+    os.makedirs('logs')
+
+# Configure logging to write to a file
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    filename="logs/app.log",
+    filemode="a",  # Append to the log file on each run
+    force=True,    # Force re-configuration, important for Streamlit's re-runs
+)
+logger = logging.getLogger(__name__)
+logger.info("--- Application Started ---")
+
+
+# --- 2. SUPPRESS SPECIFIC WARNINGS ---
+# This ignores the harmless FP16 warning from Whisper on CPU
+warnings.filterwarnings("ignore", message="FP16 is not supported on CPU; using FP32 instead")
+
+
+# --- Import custom modules from src ---
 from src.config import Config
 from src.database import DatabaseManager
 from src.gemini_client import GeminiClient, DEFAULT_CATEGORIES
-from src.voice_processor import VoiceProcessor, MICROPHONE_AVAILABLE
+from src.voice_processor import VoiceProcessor, MICROPHONE_AVAILABLE, WHISPER_AVAILABLE
 from src.auth import AuthManager
 from src.export_manager import ExportManager
 from src.ui_components import UIComponents
 
+
 # --- Page Configuration ---
 st.set_page_config(page_title="Smart Expense Tracker", layout="wide", page_icon="💰")
+
 
 # --- Initialization ---
 @st.cache_resource
@@ -31,6 +57,7 @@ def init_components():
         'export': ExportManager(),
         'ui': UIComponents()
     }
+
 components = init_components()
 components['ui'].apply_custom_css()
 
@@ -67,11 +94,10 @@ db_manager = components['db']
 with st.sidebar:
     st.title(f"👋 Welcome, {user['username'].capitalize()}")
     
-    # Wallet Balance Display - This data will be used in the PDF export
+    # Wallet Balance Display
     wallet = db_manager.get_wallet_balances(user['id'])
-    if wallet:
-        st.metric("💳 UPI Balance", f"${wallet['upi_balance']:,.2f}")
-        st.metric("💵 Cash Balance", f"${wallet['cash_balance']:,.2f}")
+    st.metric("💳 UPI Balance", f"${wallet.get('upi_balance', 0):,.2f}")
+    st.metric("💵 Cash Balance", f"${wallet.get('cash_balance', 0):,.2f}")
 
     st.divider()
     st.header("📊 Dashboard Controls")
@@ -224,27 +250,61 @@ with tab3:
                         if not result: st.success("Saved!"); st.rerun()
                         else: st.error(result)
                     else: st.error("AI could not parse input. Please be more specific.")
+    
     with add_tab2:
         if MICROPHONE_AVAILABLE:
-            st.info("Say something like 'Dinner for 30 dollars paid with cash'.")
+            available_methods = [m.replace("Speech Recognition", "").strip() for m in components['voice'].get_available_methods()]
+            st.info(f"🎤 Available methods: **{', '.join(available_methods)}**")
+            
+            if WHISPER_AVAILABLE:
+                st.success("✅ Enhanced voice recognition with local Whisper AI is available!")
+            else:
+                st.warning("⚠️ Whisper AI not available, using Google Speech Recognition only.")
+            
+            st.markdown("Say something like: *'Dinner for 30 dollars paid with cash'*")
+            
             with st.expander("🎙️ Voice Settings"):
+                method_options = ["Hybrid (Recommended)"] if WHISPER_AVAILABLE else ["Google Only"]
+                if WHISPER_AVAILABLE: method_options.extend(["Whisper Only", "Google Only"])
+                
+                recognition_method = st.selectbox("Recognition Method", method_options, help="Hybrid uses both methods for best accuracy")
                 energy = st.slider("Energy Threshold", 50, 4000, 300, 50, key="voice_e")
                 pause = st.slider("Pause Threshold (s)", 0.5, 3.0, 0.8, 0.1, key="voice_p")
+                timeout = st.slider("Listening Timeout (s)", 5, 30, 10, 1, key="voice_timeout")
+                phrase_limit = st.slider("Max Phrase Length (s)", 10, 30, 15, 1, key="voice_phrase")
+            
+            method_param = "hybrid"
+            if "Whisper" in recognition_method: method_param = "whisper"
+            elif "Google" in recognition_method: method_param = "google"
+            
             if st.button("🎤 Start Recording", use_container_width=True):
-                with st.spinner("Listening..."):
-                    voice = components['voice'].recognize_speech(energy_threshold=energy, pause_threshold=pause)
-                if voice['status'] == 'success':
-                    st.info(f"Recognized: *{voice['text']}*")
-                    with st.spinner("🤖 AI is processing..."):
-                        expense_data = components['gemini'].parse_expense_input(voice['text'])
+                with st.spinner(f"🎧 Listening using {recognition_method}..."):
+                    voice_result = components['voice'].recognize_speech(
+                        energy_threshold=energy, pause_threshold=pause, timeout=timeout,
+                        phrase_limit=phrase_limit, method=method_param
+                    )
+                
+                if voice_result.get('status') == 'success':
+                    st.success(f"✅ Recognized via {voice_result['method']}")
+                    st.info(f"📝 **Transcription:** *{voice_result['text']}*")
+                    
+                    if 'confidence' in voice_result:
+                        st.progress(max(0, voice_result['confidence'] + 1.0), text=f"Confidence: {voice_result['confidence']:.2f}")
+
+                    with st.spinner("🤖 AI is processing transcription..."):
+                        expense_data = components['gemini'].parse_expense_input(voice_result['text'])
                         if expense_data:
                             expense_data['user_id'] = user['id']
                             result = db_manager.save_expense(expense_data)
-                            if not result: st.success(f"Saved: {expense_data['title']}!"); st.rerun()
-                            else: st.error(result)
-                        else: st.error("AI could not parse speech.")
-                else: st.error(f"Recognition failed: {voice['error']}")
-        else: st.warning("🎤 Voice input not available.")
+                            if not result: st.success(f"💾 Saved: {expense_data['title']}!"); st.rerun()
+                            else: st.error(f"Failed to save: {result}")
+                        else: st.error("🤖 AI could not parse the transcription. Try being more specific.")
+                else:
+                    st.error(f"❌ Recognition failed ({voice_result.get('method', 'N/A')}): {voice_result.get('error', 'Unknown error')}")
+
+        else:
+            st.warning("🎤 Voice input not available - no microphone detected.")
+    
     with add_tab3:
         with st.form("manual_add_form", clear_on_submit=True):
             c1, c2 = st.columns(2)
@@ -265,6 +325,7 @@ with tab3:
 
 with tab4:
     st.header("Export Your Data")
+    # ... (The rest of the file remains the same) ...
     export_period = st.selectbox("Select Export Period", ["Filtered Range", "This Week", "Last Week", "This Month", "Last Month", "This Year"])
     today = datetime.now().date()
     if export_period == "Filtered Range":
@@ -275,14 +336,12 @@ with tab4:
         export_start_date, export_end_date = today - timedelta(days=today.weekday()), today
     elif export_period == "Last Week":
         end_of_last_week = today - timedelta(days=today.weekday() + 1)
-        export_start_date = end_of_last_week - timedelta(days=6), end_of_last_week
+        export_start_date, export_end_date = end_of_last_week - timedelta(days=6), end_of_last_week
     elif export_period == "This Month":
-        export_start_date = today.replace(day=1)
-        export_end_date = today
+        export_start_date, export_end_date = today.replace(day=1), today
     elif export_period == "Last Month":
         end_of_last_month = today.replace(day=1) - timedelta(days=1)
-        export_start_date = end_of_last_month.replace(day=1)
-        export_end_date = end_of_last_month
+        export_start_date, export_end_date = end_of_last_month.replace(day=1), end_of_last_month
     else: # This Year
         export_start_date, export_end_date = today.replace(month=1, day=1), today
 
@@ -297,7 +356,5 @@ with tab4:
         excel_data = components['export'].export_to_excel(export_df)
         c2.download_button("📊 Download as Excel", excel_data.getvalue(), f"expenses_{user['username']}_{file_period_str}.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True)
         
-        # --- MODIFIED PDF BUTTON ---
-        # We now pass the 'wallet' dictionary fetched earlier to the PDF export function
         pdf_bytes = components['export'].export_to_pdf(export_df, user, wallet)
         c3.download_button("📑 Download PDF Report", pdf_bytes, f"report_{user['username']}_{file_period_str}.pdf", "application/pdf", use_container_width=True)

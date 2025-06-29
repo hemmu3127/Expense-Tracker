@@ -1,0 +1,104 @@
+2025-06-29 12:07:37,571 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:07:43,882 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-06-29 12:07:44,270 - src.database - INFO - Database initialized/validated successfully.
+2025-06-29 12:07:44,270 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-06-29 12:07:59,595 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:07:59,715 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:08:08,860 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:08:10,420 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:08:16,370 - src.voice_processor - INFO - Google recognized: milk and curd 46 29th June
+2025-06-29 12:08:17,837 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:08:23,543 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:08:23,790 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:08:32,882 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:08:34,571 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:08:43,785 - src.voice_processor - INFO - Whisper recognized: and CURT 46 UPI 29th June.
+2025-06-29 12:08:45,113 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:08:53,474 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:08:53,703 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:11:38,851 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:11:44,326 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-06-29 12:11:44,694 - src.database - INFO - Database initialized/validated successfully.
+2025-06-29 12:11:44,694 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-06-29 12:12:35,499 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:12:35,617 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:13:31,445 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:13:37,303 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-06-29 12:13:42,947 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:13:42,958 - src.database - INFO - Database initialized/validated successfully.
+2025-06-29 12:13:42,958 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-06-29 12:15:37,590 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:15:42,939 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-06-29 12:15:43,382 - src.database - INFO - Database initialized/validated successfully.
+2025-06-29 12:15:43,382 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-06-29 12:15:53,072 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:15:53,194 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:16:09,779 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:16:11,420 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:16:16,806 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:16:17,041 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:21:52,895 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-06-29 12:21:53,358 - src.database - INFO - Database initialized successfully.
+2025-06-29 12:21:53,359 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-06-29 12:21:58,180 - src.database - INFO - DB_LOG: User 2 - EXPORT_DATA - Prepared export of 36 transactions for period 'Filtered Range'
+2025-06-29 12:22:51,027 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:22:56,338 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-06-29 12:22:56,709 - src.database - INFO - Database initialized/validated successfully.
+2025-06-29 12:22:56,709 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-06-29 12:23:00,235 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:23:00,357 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:23:11,066 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:23:14,090 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:23:19,110 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:23:19,355 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:27:58,119 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:28:03,573 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-06-29 12:28:03,967 - src.database - INFO - Database initialized/validated successfully.
+2025-06-29 12:28:03,968 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-06-29 12:28:22,472 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:28:22,476 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-06-29 12:28:22,582 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:28:22,585 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239B866BA50>
+2025-06-29 12:28:23,063 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239B8C85BB0>
+2025-06-29 12:28:23,087 - src.export_manager - INFO - Exporting DataFrame to CSV format.
+2025-06-29 12:28:23,327 - src.export_manager - INFO - Exporting DataFrame to Excel format.
+2025-06-29 12:28:23,349 - src.export_manager - INFO - PDF export completed successfully.
+2025-06-29 12:28:34,141 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:28:34,143 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239B93F9830>
+2025-06-29 12:28:34,362 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239BA4A91F0>
+2025-06-29 12:28:34,373 - src.database - INFO - Expense saved successfully for user 2. Amount: $250.00, Method: UPI.
+2025-06-29 12:28:34,488 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:28:34,493 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239BA41B2B0>
+2025-06-29 12:28:34,724 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239BA4D9E30>
+2025-06-29 12:28:34,747 - src.export_manager - INFO - Exporting DataFrame to CSV format.
+2025-06-29 12:28:34,786 - src.export_manager - INFO - Exporting DataFrame to Excel format.
+2025-06-29 12:28:34,810 - src.export_manager - INFO - PDF export completed successfully.
+2025-06-29 12:28:44,805 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:28:44,810 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x0000023994DEEC10>
+2025-06-29 12:28:45,044 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:28:45,048 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x0000023996E26D30>
+2025-06-29 12:28:45,293 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239BA4A8470>
+2025-06-29 12:28:45,319 - src.export_manager - INFO - Exporting DataFrame to CSV format.
+2025-06-29 12:28:45,352 - src.export_manager - INFO - Exporting DataFrame to Excel format.
+2025-06-29 12:28:45,380 - src.export_manager - INFO - PDF export completed successfully.
+2025-06-29 12:28:51,494 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:28:51,498 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239B890D1B0>
+2025-06-29 12:28:51,744 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239BA422CF0>
+2025-06-29 12:28:51,766 - src.export_manager - INFO - Exporting DataFrame to CSV format.
+2025-06-29 12:28:51,797 - src.export_manager - INFO - Exporting DataFrame to Excel format.
+2025-06-29 12:28:51,822 - src.export_manager - INFO - PDF export completed successfully.
+2025-06-29 12:28:54,144 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:28:54,148 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239EE8AD3F0>
+2025-06-29 12:28:54,256 - src.database - INFO - Expense 68 deleted successfully for user 2.
+2025-06-29 12:28:54,373 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:28:54,377 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239BA422410>
+2025-06-29 12:28:54,598 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239BA4DD0F0>
+2025-06-29 12:28:54,620 - src.export_manager - INFO - Exporting DataFrame to CSV format.
+2025-06-29 12:28:54,651 - src.export_manager - INFO - Exporting DataFrame to Excel format.
+2025-06-29 12:28:54,675 - src.export_manager - INFO - PDF export completed successfully.
+2025-06-29 12:29:00,916 - __main__ - INFO - --- Application Started ---
+2025-06-29 12:29:00,919 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239BA4F35D0>
+2025-06-29 12:29:01,218 - src.database - INFO - Retrieved wallet balances for user 2: <sqlite3.Row object at 0x00000239B8C83A90>
+2025-06-29 12:29:01,255 - src.export_manager - INFO - Exporting DataFrame to CSV format.
+2025-06-29 12:29:01,295 - src.export_manager - INFO - Exporting DataFrame to Excel format.
+2025-06-29 12:29:01,328 - src.export_manager - INFO - PDF export completed successfully.

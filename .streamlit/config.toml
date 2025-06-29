@@ -1,0 +1,11 @@
+# /.streamlit/config.toml
+
+[server]
+# Blacklist folders that the file watcher should not track.
+# This prevents nuisance errors from libraries like PyTorch.
+folderWatchBlacklist = ["venv", ".venv", "torch"]
+
+[client]
+# This silences the "no running event loop" message which is not a real error.
+# If this error disappears, we know the config file is being read.
+showErrorDetails = false

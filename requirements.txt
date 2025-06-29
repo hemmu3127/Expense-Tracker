@@ -8,3 +8,8 @@ pyaudio
 python-dotenv
 openpyxl
 fpdf2
+
+pydub
+openai-whisper
+torch 
+torchaudio
