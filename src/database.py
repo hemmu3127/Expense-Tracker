@@ -198,7 +198,6 @@ class DatabaseManager:
     def get_wallet_balances(self, user_id: int) -> Optional[dict]:
         with self.get_connection() as conn:
             wallet = conn.execute("SELECT upi_balance, cash_balance FROM wallets WHERE user_id = ?", (user_id,)).fetchone()
-            logger.info(f"Retrieved wallet balances for user {user_id}: {wallet}")
             return dict(wallet) if wallet else {'upi_balance': 0.0, 'cash_balance': 0.0}
 
     def set_wallet_balances(self, user_id: int, upi_balance: float, cash_balance: float) -> bool:

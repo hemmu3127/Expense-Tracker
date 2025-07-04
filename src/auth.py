@@ -1,6 +1,10 @@
 # src/auth.py
 import streamlit as st
 from typing import Optional
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 class AuthManager:
     """Manages user authentication and session state."""
@@ -32,6 +36,7 @@ class AuthManager:
         
         # Explicitly clear state on failed login attempt
         st.session_state.authenticated = False
+        logger.warning(f"Login failed for user: {username}")
         st.session_state.user = None
         return False
 

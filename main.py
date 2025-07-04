@@ -22,7 +22,7 @@ logging.basicConfig(
     force=True,    # Force re-configuration, important for Streamlit's re-runs
 )
 logger = logging.getLogger(__name__)
-logger.info("--- Application Started ---")
+
 
 
 # --- 2. SUPPRESS SPECIFIC WARNINGS ---
@@ -120,6 +120,8 @@ with st.sidebar:
 
 # --- Main Content Tabs ---
 st.title("📈 Expense Dashboard")
+logger.info("Application started successfully.")
+logger.info(f"User {user['username']} accessed the dashboard.")
 tab1, tab2, tab3, tab4 = st.tabs(["📊 Overview", "💰 My Wallet", "➕ Add Expense", "📤 Export Data"])
 
 # == OVERVIEW TAB ==
@@ -352,9 +354,17 @@ with tab4:
         st.info(f"Preparing to export **{len(export_df)}** transactions from **{export_start_date}** to **{export_end_date}**.")
         c1, c2, c3 = st.columns(3)
         file_period_str = export_period.lower().replace(' ', '_')
-        c1.download_button("📄 Download as CSV", components['export'].export_to_csv(export_df), f"expenses_{user['username']}_{file_period_str}.csv", "text/csv", use_container_width=True)
+        csv_click=c1.download_button("📄 Download as CSV", components['export'].export_to_csv(export_df), f"expenses_{user['username']}_{file_period_str}.csv", "text/csv", use_container_width=True)
+        if csv_click:
+            logger.info(f"CSV export initiated for user {user['username']} for period {file_period_str}.")
+
         excel_data = components['export'].export_to_excel(export_df)
-        c2.download_button("📊 Download as Excel", excel_data.getvalue(), f"expenses_{user['username']}_{file_period_str}.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True)
-        
+    
+        excel_click = c2.download_button("📊 Download as Excel", excel_data.getvalue(), f"expenses_{user['username']}_{file_period_str}.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True)
+        if excel_click:
+            logger.info(f"Excel export initiated for user {user['username']} for period {file_period_str}.")
+
         pdf_bytes = components['export'].export_to_pdf(export_df, user, wallet)
-        c3.download_button("📑 Download PDF Report", pdf_bytes, f"report_{user['username']}_{file_period_str}.pdf", "application/pdf", use_container_width=True)
+        pdf_click=c3.download_button("📑 Download PDF Report", pdf_bytes, f"report_{user['username']}_{file_period_str}.pdf", "application/pdf", use_container_width=True)
+        if pdf_click:
+            logger.info(f"PDF export initiated for user {user['username']} for period {file_period_str}.")
