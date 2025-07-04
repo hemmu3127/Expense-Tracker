@@ -71,7 +71,7 @@ expense-tracker/
 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/hemmu3127/Expense-Tracker.git
-cd Expense-Tracker
+cd expense-tracker
 ```
 
 2️⃣ Create a Virtual Environment
