@@ -1,7 +1,752 @@
-2025-07-04 07:45:28,055 - src.voice_processor - INFO - Whisper small model loaded successfully
-2025-07-04 07:45:28,744 - src.database - INFO - Database initialized/validated successfully.
-2025-07-04 07:45:28,745 - src.gemini_client - INFO - Gemini client initialized successfully.
-2025-07-04 07:45:35,006 - src.auth - WARNING - Login failed for user: Hemmu
-2025-07-04 07:45:39,496 - src.database - INFO - User 'Hemmu' authenticated successfully.
-2025-07-04 07:45:39,796 - __main__ - INFO - Application started successfully.
-2025-07-04 07:45:39,797 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:21:46,673 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-06 07:21:47,942 - src.database - INFO - Database initialized/validated successfully.
+2025-08-06 07:21:47,942 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-06 07:21:59,838 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-06 07:22:00,112 - __main__ - INFO - Application started successfully.
+2025-08-06 07:22:00,113 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:22:18,231 - __main__ - INFO - Application started successfully.
+2025-08-06 07:22:18,231 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:22:19,918 - src.database - INFO - Expense saved successfully for user 2. Amount: $110.00, Method: UPI.
+2025-08-06 07:22:20,188 - __main__ - INFO - Application started successfully.
+2025-08-06 07:22:20,189 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:22:32,598 - __main__ - INFO - Application started successfully.
+2025-08-06 07:22:32,598 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:22:32,884 - src.database - INFO - Updated wallet balances for user 2: UPI=1000.0, Cash=1000.0
+2025-08-06 07:22:33,205 - __main__ - INFO - Application started successfully.
+2025-08-06 07:22:33,206 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:22:53,778 - __main__ - INFO - Application started successfully.
+2025-08-06 07:22:53,779 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:22:55,787 - src.database - INFO - Expense saved successfully for user 2. Amount: $160.00, Method: UPI.
+2025-08-06 07:22:56,052 - __main__ - INFO - Application started successfully.
+2025-08-06 07:22:56,053 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:23:25,085 - __main__ - INFO - Application started successfully.
+2025-08-06 07:23:25,085 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:23:26,937 - src.database - INFO - Expense saved successfully for user 2. Amount: $300.00, Method: Cash.
+2025-08-06 07:23:27,211 - __main__ - INFO - Application started successfully.
+2025-08-06 07:23:27,213 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:24:22,629 - __main__ - INFO - Application started successfully.
+2025-08-06 07:24:22,630 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:24:24,133 - src.database - INFO - Expense saved successfully for user 2. Amount: $15.00, Method: UPI.
+2025-08-06 07:24:24,331 - __main__ - INFO - Application started successfully.
+2025-08-06 07:24:24,331 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:24:42,224 - __main__ - INFO - Application started successfully.
+2025-08-06 07:24:42,225 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:24:43,616 - src.database - INFO - Expense saved successfully for user 2. Amount: $125.00, Method: UPI.
+2025-08-06 07:24:43,823 - __main__ - INFO - Application started successfully.
+2025-08-06 07:24:43,824 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:25:14,258 - __main__ - INFO - Application started successfully.
+2025-08-06 07:25:14,258 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:25:15,561 - src.database - INFO - Expense saved successfully for user 2. Amount: $103.00, Method: UPI.
+2025-08-06 07:25:15,764 - __main__ - INFO - Application started successfully.
+2025-08-06 07:25:15,764 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:25:46,500 - __main__ - INFO - Application started successfully.
+2025-08-06 07:25:46,500 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:25:47,925 - src.database - INFO - Expense saved successfully for user 2. Amount: $30.00, Method: UPI.
+2025-08-06 07:25:48,131 - __main__ - INFO - Application started successfully.
+2025-08-06 07:25:48,131 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:28:02,659 - __main__ - INFO - Application started successfully.
+2025-08-06 07:28:02,659 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 07:28:42,729 - __main__ - INFO - Application started successfully.
+2025-08-06 07:28:42,730 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-06 08:34:46,401 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-06 08:34:47,296 - src.database - INFO - Database initialized/validated successfully.
+2025-08-06 08:34:47,296 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-06 08:34:58,680 - src.database - INFO - User 'Sowri' authenticated successfully.
+2025-08-06 08:34:58,891 - __main__ - INFO - Application started successfully.
+2025-08-06 08:34:58,892 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:35:07,301 - __main__ - INFO - Application started successfully.
+2025-08-06 08:35:07,302 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:35:07,605 - src.database - INFO - Updated wallet balances for user 4: UPI=5000.0, Cash=588.0
+2025-08-06 08:35:07,812 - __main__ - INFO - Application started successfully.
+2025-08-06 08:35:07,812 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:35:38,938 - __main__ - INFO - Application started successfully.
+2025-08-06 08:35:38,939 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:35:50,371 - __main__ - INFO - Application started successfully.
+2025-08-06 08:35:50,372 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:35:50,650 - src.database - INFO - Updated wallet balances for user 4: UPI=1000.0, Cash=588.0
+2025-08-06 08:35:50,976 - __main__ - INFO - Application started successfully.
+2025-08-06 08:35:50,976 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:35:53,429 - __main__ - INFO - Application started successfully.
+2025-08-06 08:35:53,430 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:35:53,753 - src.database - INFO - Updated wallet balances for user 4: UPI=1000.0, Cash=5000.0
+2025-08-06 08:35:54,042 - __main__ - INFO - Application started successfully.
+2025-08-06 08:35:54,043 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:36:10,107 - __main__ - INFO - Application started successfully.
+2025-08-06 08:36:10,108 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:36:11,581 - src.database - INFO - Expense saved successfully for user 4. Amount: $3000.00, Method: Cash.
+2025-08-06 08:36:11,849 - __main__ - INFO - Application started successfully.
+2025-08-06 08:36:11,850 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:36:19,321 - __main__ - INFO - Application started successfully.
+2025-08-06 08:36:19,322 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:36:19,869 - __main__ - INFO - Application started successfully.
+2025-08-06 08:36:19,869 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:36:25,845 - __main__ - INFO - Application started successfully.
+2025-08-06 08:36:25,846 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:36:53,887 - __main__ - INFO - Application started successfully.
+2025-08-06 08:36:53,887 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:36:55,310 - src.database - INFO - Expense saved successfully for user 4. Amount: $200.00, Method: Cash.
+2025-08-06 08:36:55,552 - __main__ - INFO - Application started successfully.
+2025-08-06 08:36:55,552 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:37:02,522 - __main__ - INFO - Application started successfully.
+2025-08-06 08:37:02,523 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:37:02,982 - __main__ - INFO - Application started successfully.
+2025-08-06 08:37:02,982 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:37:08,574 - __main__ - INFO - Application started successfully.
+2025-08-06 08:37:08,576 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:37:35,192 - __main__ - INFO - Application started successfully.
+2025-08-06 08:37:35,192 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-06 08:37:36,678 - src.database - INFO - Expense saved successfully for user 4. Amount: $50.00, Method: Cash.
+2025-08-06 08:37:36,899 - __main__ - INFO - Application started successfully.
+2025-08-06 08:37:36,900 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-07 08:49:07,088 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-07 08:49:08,464 - src.database - INFO - Database initialized/validated successfully.
+2025-08-07 08:49:08,465 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-07 08:49:24,317 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-07 08:49:24,526 - __main__ - INFO - Application started successfully.
+2025-08-07 08:49:24,526 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 08:49:46,151 - __main__ - INFO - Application started successfully.
+2025-08-07 08:49:46,151 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 08:49:47,978 - src.database - INFO - Expense saved successfully for user 2. Amount: $150.00, Method: UPI.
+2025-08-07 08:49:48,197 - __main__ - INFO - Application started successfully.
+2025-08-07 08:49:48,198 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 08:50:00,096 - __main__ - INFO - Application started successfully.
+2025-08-07 08:50:00,096 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 08:50:01,908 - src.database - INFO - Expense saved successfully for user 2. Amount: $120.00, Method: UPI.
+2025-08-07 08:50:02,129 - __main__ - INFO - Application started successfully.
+2025-08-07 08:50:02,129 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 08:50:48,834 - __main__ - INFO - Application started successfully.
+2025-08-07 08:50:48,834 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 08:50:49,211 - src.database - INFO - Updated wallet balances for user 2: UPI=1000.0, Cash=700.0
+2025-08-07 08:50:49,433 - __main__ - INFO - Application started successfully.
+2025-08-07 08:50:49,434 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 13:07:14,359 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-07 13:07:15,662 - src.database - INFO - Database initialized/validated successfully.
+2025-08-07 13:07:15,663 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-07 13:07:32,408 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-07 13:07:32,722 - __main__ - INFO - Application started successfully.
+2025-08-07 13:07:32,722 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 13:07:57,997 - __main__ - INFO - Application started successfully.
+2025-08-07 13:07:57,997 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 13:07:59,801 - src.database - INFO - Expense saved successfully for user 2. Amount: $50.00, Method: UPI.
+2025-08-07 13:08:00,034 - __main__ - INFO - Application started successfully.
+2025-08-07 13:08:00,035 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 13:08:20,446 - __main__ - INFO - Application started successfully.
+2025-08-07 13:08:20,447 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 13:08:22,218 - src.database - INFO - Expense saved successfully for user 2. Amount: $200.00, Method: UPI.
+2025-08-07 13:08:22,415 - __main__ - INFO - Application started successfully.
+2025-08-07 13:08:22,416 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 13:08:33,099 - __main__ - INFO - Application started successfully.
+2025-08-07 13:08:33,099 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 13:08:33,571 - __main__ - INFO - Application started successfully.
+2025-08-07 13:08:33,571 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-07 13:08:38,219 - __main__ - INFO - Application started successfully.
+2025-08-07 13:08:38,219 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:06:05,681 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-09 22:06:06,419 - src.database - INFO - Database initialized/validated successfully.
+2025-08-09 22:06:06,420 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-09 22:06:16,048 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-09 22:06:16,180 - __main__ - INFO - Application started successfully.
+2025-08-09 22:06:16,180 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:08:37,915 - __main__ - INFO - Application started successfully.
+2025-08-09 22:08:37,915 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:08:39,499 - src.database - INFO - Expense saved successfully for user 2. Amount: $125.00, Method: UPI.
+2025-08-09 22:08:39,618 - __main__ - INFO - Application started successfully.
+2025-08-09 22:08:39,619 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:08:56,484 - __main__ - INFO - Application started successfully.
+2025-08-09 22:08:56,484 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:08:57,919 - src.database - INFO - Expense saved successfully for user 2. Amount: $10.00, Method: UPI.
+2025-08-09 22:08:58,044 - __main__ - INFO - Application started successfully.
+2025-08-09 22:08:58,044 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:09:22,711 - __main__ - INFO - Application started successfully.
+2025-08-09 22:09:22,711 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:09:23,853 - src.database - INFO - Expense saved successfully for user 2. Amount: $130.00, Method: UPI.
+2025-08-09 22:09:23,977 - __main__ - INFO - Application started successfully.
+2025-08-09 22:09:23,977 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:09:33,627 - __main__ - INFO - Application started successfully.
+2025-08-09 22:09:33,627 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:09:34,828 - src.database - INFO - Expense saved successfully for user 2. Amount: $174.00, Method: UPI.
+2025-08-09 22:09:34,954 - __main__ - INFO - Application started successfully.
+2025-08-09 22:09:34,954 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:10:02,097 - __main__ - INFO - Application started successfully.
+2025-08-09 22:10:02,097 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:10:03,375 - src.database - INFO - Expense saved successfully for user 2. Amount: $20.00, Method: Cash.
+2025-08-09 22:10:03,515 - __main__ - INFO - Application started successfully.
+2025-08-09 22:10:03,515 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:10:18,759 - __main__ - INFO - Application started successfully.
+2025-08-09 22:10:18,759 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:10:20,019 - src.database - INFO - Expense saved successfully for user 2. Amount: $200.00, Method: Cash.
+2025-08-09 22:10:20,158 - __main__ - INFO - Application started successfully.
+2025-08-09 22:10:20,159 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:10:28,797 - __main__ - INFO - Application started successfully.
+2025-08-09 22:10:28,797 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:10:29,083 - __main__ - INFO - Application started successfully.
+2025-08-09 22:10:29,083 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:10:42,088 - __main__ - INFO - Application started successfully.
+2025-08-09 22:10:42,088 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:11:35,828 - __main__ - INFO - Application started successfully.
+2025-08-09 22:11:35,829 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:11:35,998 - src.database - INFO - Updated wallet balances for user 2: UPI=1000.0, Cash=480.0
+2025-08-09 22:11:36,138 - __main__ - INFO - Application started successfully.
+2025-08-09 22:11:36,139 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:11:39,811 - __main__ - INFO - Application started successfully.
+2025-08-09 22:11:39,811 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-09 22:11:39,977 - src.database - INFO - Updated wallet balances for user 2: UPI=1000.0, Cash=1000.0
+2025-08-09 22:11:40,115 - __main__ - INFO - Application started successfully.
+2025-08-09 22:11:40,115 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-12 19:31:12,765 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-12 19:31:14,249 - src.database - INFO - Database initialized/validated successfully.
+2025-08-12 19:31:14,249 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-12 19:32:06,385 - src.database - INFO - User 'Sowri' authenticated successfully.
+2025-08-12 19:32:06,604 - __main__ - INFO - Application started successfully.
+2025-08-12 19:32:06,604 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:32:41,574 - __main__ - INFO - Application started successfully.
+2025-08-12 19:32:41,574 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:32:51,173 - __main__ - INFO - Application started successfully.
+2025-08-12 19:32:51,173 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:32:51,555 - src.database - INFO - Updated wallet balances for user 4: UPI=1000.0, Cash=6000.0
+2025-08-12 19:32:51,784 - __main__ - INFO - Application started successfully.
+2025-08-12 19:32:51,785 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:32:57,494 - __main__ - INFO - Application started successfully.
+2025-08-12 19:32:57,494 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:32:57,840 - src.database - INFO - Updated wallet balances for user 4: UPI=1000.0, Cash=16000.0
+2025-08-12 19:32:58,044 - __main__ - INFO - Application started successfully.
+2025-08-12 19:32:58,044 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:33:13,891 - __main__ - INFO - Application started successfully.
+2025-08-12 19:33:13,891 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:33:15,420 - src.database - INFO - Expense saved successfully for user 4. Amount: $3500.00, Method: Cash.
+2025-08-12 19:33:15,629 - __main__ - INFO - Application started successfully.
+2025-08-12 19:33:15,630 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:33:48,215 - __main__ - INFO - Application started successfully.
+2025-08-12 19:33:48,215 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:33:49,721 - src.database - INFO - Expense saved successfully for user 4. Amount: $947.00, Method: Cash.
+2025-08-12 19:33:49,915 - __main__ - INFO - Application started successfully.
+2025-08-12 19:33:49,915 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:34:00,987 - __main__ - INFO - Application started successfully.
+2025-08-12 19:34:00,988 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:34:02,422 - src.database - INFO - Expense saved successfully for user 4. Amount: $250.00, Method: Cash.
+2025-08-12 19:34:02,631 - __main__ - INFO - Application started successfully.
+2025-08-12 19:34:02,631 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:34:22,074 - __main__ - INFO - Application started successfully.
+2025-08-12 19:34:22,074 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:34:23,429 - src.database - INFO - Expense saved successfully for user 4. Amount: $200.00, Method: Cash.
+2025-08-12 19:34:23,636 - __main__ - INFO - Application started successfully.
+2025-08-12 19:34:23,636 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:34:29,152 - __main__ - INFO - Application started successfully.
+2025-08-12 19:34:29,153 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:34:29,665 - __main__ - INFO - Application started successfully.
+2025-08-12 19:34:29,667 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:34:34,751 - __main__ - INFO - Application started successfully.
+2025-08-12 19:34:34,753 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:34:48,888 - __main__ - INFO - Application started successfully.
+2025-08-12 19:34:48,889 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:34:49,452 - __main__ - INFO - Application started successfully.
+2025-08-12 19:34:49,453 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:34:54,756 - __main__ - INFO - Application started successfully.
+2025-08-12 19:34:54,756 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:34:56,749 - __main__ - INFO - Application started successfully.
+2025-08-12 19:34:56,751 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:34:57,209 - __main__ - INFO - Application started successfully.
+2025-08-12 19:34:57,209 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:35:02,402 - __main__ - INFO - Application started successfully.
+2025-08-12 19:35:02,402 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:35:57,220 - src.auth - WARNING - Login failed for user: Hemmu
+2025-08-12 19:35:59,082 - src.auth - WARNING - Login failed for user: Hemmu
+2025-08-12 19:36:08,076 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-12 19:36:08,281 - __main__ - INFO - Application started successfully.
+2025-08-12 19:36:08,281 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-12 19:36:26,777 - __main__ - INFO - Application started successfully.
+2025-08-12 19:36:26,777 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-12 19:36:28,340 - src.database - INFO - Expense saved successfully for user 2. Amount: $300.00, Method: UPI.
+2025-08-12 19:36:28,536 - __main__ - INFO - Application started successfully.
+2025-08-12 19:36:28,536 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-12 19:36:39,337 - __main__ - INFO - Application started successfully.
+2025-08-12 19:36:39,338 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-12 19:36:40,940 - src.database - INFO - Expense saved successfully for user 2. Amount: $100.00, Method: UPI.
+2025-08-12 19:36:41,217 - __main__ - INFO - Application started successfully.
+2025-08-12 19:36:41,217 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-12 19:37:13,450 - __main__ - INFO - Application started successfully.
+2025-08-12 19:37:13,450 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-12 19:37:13,875 - src.database - INFO - Updated wallet balances for user 2: UPI=2000.0, Cash=1000.0
+2025-08-12 19:37:14,226 - __main__ - INFO - Application started successfully.
+2025-08-12 19:37:14,226 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-12 19:37:24,612 - src.database - INFO - User 'Sowri' authenticated successfully.
+2025-08-12 19:37:24,911 - __main__ - INFO - Application started successfully.
+2025-08-12 19:37:24,913 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:37:36,670 - __main__ - INFO - Application started successfully.
+2025-08-12 19:37:36,672 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:37:38,144 - src.database - INFO - Expense saved successfully for user 4. Amount: $80.00, Method: Cash.
+2025-08-12 19:37:38,417 - __main__ - INFO - Application started successfully.
+2025-08-12 19:37:38,417 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:37:51,326 - __main__ - INFO - Application started successfully.
+2025-08-12 19:37:51,326 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:37:52,723 - src.database - INFO - Expense saved successfully for user 4. Amount: $100.00, Method: UPI.
+2025-08-12 19:37:53,021 - __main__ - INFO - Application started successfully.
+2025-08-12 19:37:53,021 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:38:04,110 - __main__ - INFO - Application started successfully.
+2025-08-12 19:38:04,110 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:38:05,530 - src.database - INFO - Expense saved successfully for user 4. Amount: $130.00, Method: Cash.
+2025-08-12 19:38:05,810 - __main__ - INFO - Application started successfully.
+2025-08-12 19:38:05,811 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:38:19,107 - __main__ - INFO - Application started successfully.
+2025-08-12 19:38:19,108 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:38:19,615 - __main__ - INFO - Application started successfully.
+2025-08-12 19:38:19,615 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:38:25,096 - __main__ - INFO - Application started successfully.
+2025-08-12 19:38:25,096 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:38:27,583 - __main__ - INFO - Application started successfully.
+2025-08-12 19:38:27,583 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:38:28,055 - __main__ - INFO - Application started successfully.
+2025-08-12 19:38:28,056 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-12 19:38:33,306 - __main__ - INFO - Application started successfully.
+2025-08-12 19:38:33,307 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 11:28:03,749 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-17 11:28:04,614 - src.database - INFO - Database initialized/validated successfully.
+2025-08-17 11:28:04,615 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-17 11:28:10,281 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-17 11:28:10,413 - __main__ - INFO - Application started successfully.
+2025-08-17 11:28:10,414 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 11:28:34,077 - __main__ - INFO - Application started successfully.
+2025-08-17 11:28:34,077 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 11:28:36,862 - src.database - INFO - Expense saved successfully for user 2. Amount: $859.00, Method: UPI.
+2025-08-17 11:28:36,997 - __main__ - INFO - Application started successfully.
+2025-08-17 11:28:36,997 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 11:28:58,207 - __main__ - INFO - Application started successfully.
+2025-08-17 11:28:58,207 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 11:28:59,465 - src.database - INFO - Expense saved successfully for user 2. Amount: $270.00, Method: UPI.
+2025-08-17 11:28:59,657 - __main__ - INFO - Application started successfully.
+2025-08-17 11:28:59,657 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 14:55:02,734 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-17 14:55:03,373 - src.database - INFO - Database initialized/validated successfully.
+2025-08-17 14:55:03,375 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-17 14:55:10,934 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-17 14:55:11,052 - __main__ - INFO - Application started successfully.
+2025-08-17 14:55:11,053 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 14:55:20,165 - __main__ - INFO - Application started successfully.
+2025-08-17 14:55:20,165 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 14:55:21,734 - src.database - INFO - Expense saved successfully for user 2. Amount: $55.00, Method: UPI.
+2025-08-17 14:55:21,853 - __main__ - INFO - Application started successfully.
+2025-08-17 14:55:21,853 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 14:55:36,645 - __main__ - INFO - Application started successfully.
+2025-08-17 14:55:36,645 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 14:55:49,206 - __main__ - INFO - Application started successfully.
+2025-08-17 14:55:49,206 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 14:56:01,617 - __main__ - INFO - Application started successfully.
+2025-08-17 14:56:01,617 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 14:56:34,033 - __main__ - INFO - Application started successfully.
+2025-08-17 14:56:34,033 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 14:56:34,226 - src.database - INFO - Expense saved successfully for user 2. Amount: $20.00, Method: UPI.
+2025-08-17 14:56:34,355 - __main__ - INFO - Application started successfully.
+2025-08-17 14:56:34,355 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 14:56:43,437 - __main__ - INFO - Application started successfully.
+2025-08-17 14:56:43,437 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 14:56:43,659 - __main__ - INFO - Application started successfully.
+2025-08-17 14:56:43,659 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 14:56:50,922 - __main__ - INFO - Application started successfully.
+2025-08-17 14:56:50,922 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-17 14:57:03,955 - src.database - INFO - User 'Sowri' authenticated successfully.
+2025-08-17 14:57:04,073 - __main__ - INFO - Application started successfully.
+2025-08-17 14:57:04,073 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:57:24,121 - __main__ - INFO - Application started successfully.
+2025-08-17 14:57:24,121 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:57:25,290 - src.database - INFO - Expense saved successfully for user 4. Amount: $220.00, Method: Cash.
+2025-08-17 14:57:25,412 - __main__ - INFO - Application started successfully.
+2025-08-17 14:57:25,412 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:58:06,039 - __main__ - INFO - Application started successfully.
+2025-08-17 14:58:06,039 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:58:08,526 - src.database - INFO - Expense saved successfully for user 4. Amount: $600.00, Method: Cash.
+2025-08-17 14:58:08,644 - __main__ - INFO - Application started successfully.
+2025-08-17 14:58:08,644 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:58:18,737 - __main__ - INFO - Application started successfully.
+2025-08-17 14:58:18,738 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:58:19,848 - src.database - INFO - Expense saved successfully for user 4. Amount: $400.00, Method: Cash.
+2025-08-17 14:58:19,969 - __main__ - INFO - Application started successfully.
+2025-08-17 14:58:19,969 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:58:25,358 - __main__ - INFO - Application started successfully.
+2025-08-17 14:58:25,358 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:58:26,517 - src.database - INFO - Expense saved successfully for user 4. Amount: $170.00, Method: Cash.
+2025-08-17 14:58:26,637 - __main__ - INFO - Application started successfully.
+2025-08-17 14:58:26,638 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:58:32,315 - __main__ - INFO - Application started successfully.
+2025-08-17 14:58:32,315 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:58:33,392 - src.database - INFO - Expense saved successfully for user 4. Amount: $200.00, Method: Cash.
+2025-08-17 14:58:33,511 - __main__ - INFO - Application started successfully.
+2025-08-17 14:58:33,512 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:58:49,827 - __main__ - INFO - Application started successfully.
+2025-08-17 14:58:49,828 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:58:50,044 - __main__ - INFO - Application started successfully.
+2025-08-17 14:58:50,044 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:58:54,228 - __main__ - INFO - Application started successfully.
+2025-08-17 14:58:54,228 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:59:02,987 - __main__ - INFO - Application started successfully.
+2025-08-17 14:59:02,987 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:59:03,205 - __main__ - INFO - Application started successfully.
+2025-08-17 14:59:03,205 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:59:10,448 - __main__ - INFO - Application started successfully.
+2025-08-17 14:59:10,448 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:59:21,970 - __main__ - INFO - Application started successfully.
+2025-08-17 14:59:21,971 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:59:22,190 - __main__ - INFO - Application started successfully.
+2025-08-17 14:59:22,190 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:59:30,272 - __main__ - INFO - Application started successfully.
+2025-08-17 14:59:30,272 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:59:36,115 - __main__ - INFO - Application started successfully.
+2025-08-17 14:59:36,115 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:59:36,332 - __main__ - INFO - Application started successfully.
+2025-08-17 14:59:36,332 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 14:59:41,700 - __main__ - INFO - Application started successfully.
+2025-08-17 14:59:41,700 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 15:01:58,714 - __main__ - INFO - Application started successfully.
+2025-08-17 15:01:58,714 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 15:01:58,973 - __main__ - INFO - Application started successfully.
+2025-08-17 15:01:58,973 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-17 15:02:08,416 - __main__ - INFO - Application started successfully.
+2025-08-17 15:02:08,416 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-23 09:18:16,262 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-23 09:18:17,120 - src.database - INFO - Database initialized/validated successfully.
+2025-08-23 09:18:17,120 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-23 09:18:24,092 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-23 09:18:24,226 - __main__ - INFO - Application started successfully.
+2025-08-23 09:18:24,226 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-23 09:18:50,289 - __main__ - INFO - Application started successfully.
+2025-08-23 09:18:50,289 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-23 09:18:50,583 - src.database - INFO - Expense saved successfully for user 2. Amount: $30.00, Method: UPI.
+2025-08-23 09:18:50,736 - __main__ - INFO - Application started successfully.
+2025-08-23 09:18:50,736 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 10:04:31,401 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-24 10:04:32,211 - src.database - INFO - Database initialized/validated successfully.
+2025-08-24 10:04:32,211 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-24 10:04:40,506 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-24 10:04:40,643 - __main__ - INFO - Application started successfully.
+2025-08-24 10:04:40,643 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 10:04:52,653 - __main__ - INFO - Application started successfully.
+2025-08-24 10:04:52,655 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 10:04:54,289 - src.database - INFO - Expense saved successfully for user 2. Amount: $204.00, Method: UPI.
+2025-08-24 10:04:54,426 - __main__ - INFO - Application started successfully.
+2025-08-24 10:04:54,426 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 10:05:03,607 - __main__ - INFO - Application started successfully.
+2025-08-24 10:05:03,607 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 10:05:04,790 - src.database - INFO - Expense saved successfully for user 2. Amount: $100.00, Method: UPI.
+2025-08-24 10:05:04,939 - __main__ - INFO - Application started successfully.
+2025-08-24 10:05:04,939 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 10:05:15,208 - __main__ - INFO - Application started successfully.
+2025-08-24 10:05:15,208 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 10:05:54,940 - __main__ - INFO - Application started successfully.
+2025-08-24 10:05:54,940 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 10:05:56,151 - src.database - INFO - Expense saved successfully for user 2. Amount: $30.00, Method: UPI.
+2025-08-24 10:05:56,293 - __main__ - INFO - Application started successfully.
+2025-08-24 10:05:56,293 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 14:47:24,537 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-24 14:47:25,227 - src.database - INFO - Database initialized/validated successfully.
+2025-08-24 14:47:25,227 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-24 14:47:32,542 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-24 14:47:32,661 - __main__ - INFO - Application started successfully.
+2025-08-24 14:47:32,661 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 14:47:43,070 - __main__ - INFO - Application started successfully.
+2025-08-24 14:47:43,070 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 14:47:43,269 - src.database - INFO - Updated wallet balances for user 2: UPI=432.0, Cash=6000.0
+2025-08-24 14:47:43,413 - __main__ - INFO - Application started successfully.
+2025-08-24 14:47:43,413 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 14:47:58,298 - __main__ - INFO - Application started successfully.
+2025-08-24 14:47:58,298 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 14:48:01,404 - src.database - INFO - Expense saved successfully for user 2. Amount: $1300.00, Method: Cash.
+2025-08-24 14:48:01,529 - __main__ - INFO - Application started successfully.
+2025-08-24 14:48:01,529 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 14:48:07,364 - __main__ - INFO - Application started successfully.
+2025-08-24 14:48:07,364 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 14:48:08,672 - src.database - INFO - Expense saved successfully for user 2. Amount: $55.00, Method: Cash.
+2025-08-24 14:48:08,794 - __main__ - INFO - Application started successfully.
+2025-08-24 14:48:08,794 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 14:48:21,847 - __main__ - INFO - Application started successfully.
+2025-08-24 14:48:21,847 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 14:48:21,968 - src.database - INFO - Expense 220 deleted successfully for user 2.
+2025-08-24 14:48:22,132 - __main__ - INFO - Application started successfully.
+2025-08-24 14:48:22,132 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 14:48:28,825 - __main__ - INFO - Application started successfully.
+2025-08-24 14:48:28,825 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 14:48:28,935 - src.database - INFO - Expense 219 deleted successfully for user 2.
+2025-08-24 14:48:29,062 - __main__ - INFO - Application started successfully.
+2025-08-24 14:48:29,062 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-24 14:48:38,333 - src.auth - WARNING - Login failed for user: Sowri 
+2025-08-24 14:48:41,761 - src.auth - WARNING - Login failed for user: Sowri 
+2025-08-24 14:48:43,422 - src.auth - WARNING - Login failed for user: Sowri 
+2025-08-24 14:48:54,052 - src.database - INFO - User 'Sowri' authenticated successfully.
+2025-08-24 14:48:54,173 - __main__ - INFO - Application started successfully.
+2025-08-24 14:48:54,173 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:49:10,010 - __main__ - INFO - Application started successfully.
+2025-08-24 14:49:10,010 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:49:11,224 - src.database - INFO - Expense saved successfully for user 4. Amount: $160.00, Method: Cash.
+2025-08-24 14:49:11,345 - __main__ - INFO - Application started successfully.
+2025-08-24 14:49:11,345 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:49:26,247 - __main__ - INFO - Application started successfully.
+2025-08-24 14:49:26,247 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:49:27,521 - src.database - INFO - Expense saved successfully for user 4. Amount: $90.00, Method: Cash.
+2025-08-24 14:49:27,644 - __main__ - INFO - Application started successfully.
+2025-08-24 14:49:27,644 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:49:46,720 - __main__ - INFO - Application started successfully.
+2025-08-24 14:49:46,721 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:49:47,918 - src.database - INFO - Expense saved successfully for user 4. Amount: $20.00, Method: Cash.
+2025-08-24 14:49:48,053 - __main__ - INFO - Application started successfully.
+2025-08-24 14:49:48,053 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:50:00,917 - __main__ - INFO - Application started successfully.
+2025-08-24 14:50:00,917 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:50:01,098 - src.database - INFO - Expense saved successfully for user 4. Amount: $1300.00, Method: Cash.
+2025-08-24 14:50:01,225 - __main__ - INFO - Application started successfully.
+2025-08-24 14:50:01,226 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:50:08,798 - __main__ - INFO - Application started successfully.
+2025-08-24 14:50:08,799 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:50:10,017 - src.database - INFO - Expense saved successfully for user 4. Amount: $55.00, Method: Cash.
+2025-08-24 14:50:10,140 - __main__ - INFO - Application started successfully.
+2025-08-24 14:50:10,140 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:50:18,691 - __main__ - INFO - Application started successfully.
+2025-08-24 14:50:18,691 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:50:19,887 - src.database - INFO - Expense saved successfully for user 4. Amount: $60.00, Method: Cash.
+2025-08-24 14:50:20,018 - __main__ - INFO - Application started successfully.
+2025-08-24 14:50:20,018 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:50:29,044 - __main__ - INFO - Application started successfully.
+2025-08-24 14:50:29,046 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:50:30,262 - src.database - INFO - Expense saved successfully for user 4. Amount: $250.00, Method: Cash.
+2025-08-24 14:50:30,382 - __main__ - INFO - Application started successfully.
+2025-08-24 14:50:30,382 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:50:40,029 - __main__ - INFO - Application started successfully.
+2025-08-24 14:50:40,029 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:50:41,253 - src.database - INFO - Expense saved successfully for user 4. Amount: $500.00, Method: Cash.
+2025-08-24 14:50:41,376 - __main__ - INFO - Application started successfully.
+2025-08-24 14:50:41,377 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:50:53,460 - __main__ - INFO - Application started successfully.
+2025-08-24 14:50:53,461 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:50:54,761 - src.database - INFO - Expense saved successfully for user 4. Amount: $20.00, Method: Cash.
+2025-08-24 14:50:54,890 - __main__ - INFO - Application started successfully.
+2025-08-24 14:50:54,890 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:51:09,414 - __main__ - INFO - Application started successfully.
+2025-08-24 14:51:09,414 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:51:09,644 - __main__ - INFO - Application started successfully.
+2025-08-24 14:51:09,644 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:51:19,179 - __main__ - INFO - Application started successfully.
+2025-08-24 14:51:19,179 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:51:28,747 - __main__ - INFO - Application started successfully.
+2025-08-24 14:51:28,747 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:51:28,969 - __main__ - INFO - Application started successfully.
+2025-08-24 14:51:28,969 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:51:36,387 - __main__ - INFO - Application started successfully.
+2025-08-24 14:51:36,387 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:51:40,714 - __main__ - INFO - Application started successfully.
+2025-08-24 14:51:40,714 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:51:40,936 - __main__ - INFO - Application started successfully.
+2025-08-24 14:51:40,936 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:51:45,342 - __main__ - INFO - Application started successfully.
+2025-08-24 14:51:45,342 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:51:48,915 - __main__ - INFO - Application started successfully.
+2025-08-24 14:51:48,915 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:51:49,130 - __main__ - INFO - Application started successfully.
+2025-08-24 14:51:49,130 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:51:56,236 - __main__ - INFO - Application started successfully.
+2025-08-24 14:51:56,236 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:52:04,657 - __main__ - INFO - Application started successfully.
+2025-08-24 14:52:04,657 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:52:04,893 - __main__ - INFO - Application started successfully.
+2025-08-24 14:52:04,893 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:52:09,438 - __main__ - INFO - Application started successfully.
+2025-08-24 14:52:09,438 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:52:12,036 - __main__ - INFO - Application started successfully.
+2025-08-24 14:52:12,036 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:52:12,276 - __main__ - INFO - Application started successfully.
+2025-08-24 14:52:12,277 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:52:16,725 - __main__ - INFO - Application started successfully.
+2025-08-24 14:52:16,726 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:53:00,563 - __main__ - INFO - Application started successfully.
+2025-08-24 14:53:00,563 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:53:18,587 - __main__ - INFO - Application started successfully.
+2025-08-24 14:53:18,587 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:53:22,938 - __main__ - INFO - Application started successfully.
+2025-08-24 14:53:22,939 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:53:28,103 - __main__ - INFO - Application started successfully.
+2025-08-24 14:53:28,103 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:53:33,150 - __main__ - INFO - Application started successfully.
+2025-08-24 14:53:33,150 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-24 14:53:33,446 - __main__ - INFO - PDF export initiated for user Sowri for period filtered_range.
+2025-08-25 19:37:21,947 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-25 19:37:22,765 - src.database - INFO - Database initialized/validated successfully.
+2025-08-25 19:37:22,767 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-25 19:37:31,056 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-25 19:37:31,191 - __main__ - INFO - Application started successfully.
+2025-08-25 19:37:31,192 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-25 19:37:49,930 - __main__ - INFO - Application started successfully.
+2025-08-25 19:37:49,930 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-25 19:37:51,552 - src.database - INFO - Expense saved successfully for user 2. Amount: $196.00, Method: UPI.
+2025-08-25 19:37:51,685 - __main__ - INFO - Application started successfully.
+2025-08-25 19:37:51,686 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-25 19:37:59,227 - __main__ - INFO - Application started successfully.
+2025-08-25 19:37:59,227 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-25 19:37:59,486 - src.database - INFO - Updated wallet balances for user 2: UPI=1000.0, Cash=6000.0
+2025-08-25 19:37:59,636 - __main__ - INFO - Application started successfully.
+2025-08-25 19:37:59,637 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-25 19:38:09,763 - __main__ - INFO - Application started successfully.
+2025-08-25 19:38:09,763 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-25 19:38:11,034 - src.database - INFO - Expense saved successfully for user 2. Amount: $140.00, Method: UPI.
+2025-08-25 19:38:11,159 - __main__ - INFO - Application started successfully.
+2025-08-25 19:38:11,159 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-25 19:38:27,712 - __main__ - INFO - Application started successfully.
+2025-08-25 19:38:27,712 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-25 19:38:28,893 - src.database - INFO - Expense saved successfully for user 2. Amount: $350.00, Method: UPI.
+2025-08-25 19:38:29,020 - __main__ - INFO - Application started successfully.
+2025-08-25 19:38:29,020 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:52:55,716 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-28 19:52:57,097 - src.database - INFO - Database initialized/validated successfully.
+2025-08-28 19:52:57,098 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-28 19:53:22,549 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-28 19:53:22,757 - __main__ - INFO - Application started successfully.
+2025-08-28 19:53:22,758 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:53:48,127 - __main__ - INFO - Application started successfully.
+2025-08-28 19:53:48,128 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:53:50,225 - src.database - INFO - Expense saved successfully for user 2. Amount: $24.00, Method: UPI.
+2025-08-28 19:53:50,436 - __main__ - INFO - Application started successfully.
+2025-08-28 19:53:50,436 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:54:08,305 - __main__ - INFO - Application started successfully.
+2025-08-28 19:54:08,305 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:54:09,978 - src.database - INFO - Expense saved successfully for user 2. Amount: $50.00, Method: UPI.
+2025-08-28 19:54:10,183 - __main__ - INFO - Application started successfully.
+2025-08-28 19:54:10,183 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:54:25,086 - __main__ - INFO - Application started successfully.
+2025-08-28 19:54:25,087 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:54:26,725 - src.database - INFO - Expense saved successfully for user 2. Amount: $100.00, Method: UPI.
+2025-08-28 19:54:26,941 - __main__ - INFO - Application started successfully.
+2025-08-28 19:54:26,941 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:54:57,259 - __main__ - INFO - Application started successfully.
+2025-08-28 19:54:57,259 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:54:57,806 - src.database - INFO - Updated wallet balances for user 2: UPI=3500.0, Cash=6000.0
+2025-08-28 19:54:58,114 - __main__ - INFO - Application started successfully.
+2025-08-28 19:54:58,114 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:55:06,978 - __main__ - INFO - Application started successfully.
+2025-08-28 19:55:06,978 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:55:08,576 - src.database - INFO - Expense saved successfully for user 2. Amount: $2600.00, Method: UPI.
+2025-08-28 19:55:08,847 - __main__ - INFO - Application started successfully.
+2025-08-28 19:55:08,847 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:55:32,469 - __main__ - INFO - Application started successfully.
+2025-08-28 19:55:32,469 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:55:32,984 - __main__ - INFO - Application started successfully.
+2025-08-28 19:55:32,985 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:55:40,742 - __main__ - INFO - Application started successfully.
+2025-08-28 19:55:40,742 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-28 19:56:30,766 - src.database - INFO - User 'Sowri' authenticated successfully.
+2025-08-28 19:56:31,070 - __main__ - INFO - Application started successfully.
+2025-08-28 19:56:31,071 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 19:56:42,112 - __main__ - INFO - Application started successfully.
+2025-08-28 19:56:42,112 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 19:56:43,612 - src.database - INFO - Expense saved successfully for user 4. Amount: $200.00, Method: UPI.
+2025-08-28 19:56:43,890 - __main__ - INFO - Application started successfully.
+2025-08-28 19:56:43,891 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 19:56:50,793 - __main__ - INFO - Application started successfully.
+2025-08-28 19:56:50,793 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 19:56:51,369 - __main__ - INFO - Application started successfully.
+2025-08-28 19:56:51,369 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 19:56:55,966 - __main__ - INFO - Application started successfully.
+2025-08-28 19:56:55,966 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 21:34:47,203 - __main__ - INFO - Application started successfully.
+2025-08-28 21:34:47,205 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 21:34:49,240 - src.database - INFO - Expense saved successfully for user 4. Amount: $50.00, Method: Cash.
+2025-08-28 21:34:49,700 - __main__ - INFO - Application started successfully.
+2025-08-28 21:34:49,700 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 21:35:10,185 - __main__ - INFO - Application started successfully.
+2025-08-28 21:35:10,186 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 21:35:11,907 - src.database - INFO - Expense saved successfully for user 4. Amount: $500.00, Method: Cash.
+2025-08-28 21:35:12,117 - __main__ - INFO - Application started successfully.
+2025-08-28 21:35:12,118 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 21:35:36,363 - __main__ - INFO - Application started successfully.
+2025-08-28 21:35:36,364 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 21:35:36,775 - __main__ - INFO - Application started successfully.
+2025-08-28 21:35:36,776 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 21:35:44,750 - __main__ - INFO - Application started successfully.
+2025-08-28 21:35:44,751 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 21:35:49,632 - __main__ - INFO - Application started successfully.
+2025-08-28 21:35:49,633 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 21:35:50,089 - __main__ - INFO - Application started successfully.
+2025-08-28 21:35:50,093 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-28 21:35:55,495 - __main__ - INFO - Application started successfully.
+2025-08-28 21:35:55,495 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-08-29 18:29:52,075 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-29 18:29:52,801 - src.database - INFO - Database initialized/validated successfully.
+2025-08-29 18:29:52,801 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-29 18:30:03,695 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-29 18:30:03,825 - __main__ - INFO - Application started successfully.
+2025-08-29 18:30:03,825 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-29 18:30:28,088 - __main__ - INFO - Application started successfully.
+2025-08-29 18:30:28,088 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-29 18:30:29,728 - src.database - INFO - Expense saved successfully for user 2. Amount: $150.00, Method: UPI.
+2025-08-29 18:30:29,848 - __main__ - INFO - Application started successfully.
+2025-08-29 18:30:29,849 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-29 22:20:41,023 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-08-29 22:20:42,525 - src.database - INFO - Database initialized/validated successfully.
+2025-08-29 22:20:42,526 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-08-29 22:20:51,536 - src.auth - WARNING - Login failed for user: Hemmu
+2025-08-29 22:20:55,392 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-08-29 22:20:55,599 - __main__ - INFO - Application started successfully.
+2025-08-29 22:20:55,599 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-29 22:21:04,681 - __main__ - INFO - Application started successfully.
+2025-08-29 22:21:04,682 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-08-29 22:21:08,317 - src.database - INFO - Expense saved successfully for user 2. Amount: $164.00, Method: UPI.
+2025-08-29 22:21:08,538 - __main__ - INFO - Application started successfully.
+2025-08-29 22:21:08,538 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:20:31,910 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-10-01 10:20:32,628 - src.database - INFO - Database initialized/validated successfully.
+2025-10-01 10:20:32,628 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-10-01 10:20:40,819 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-10-01 10:20:40,956 - __main__ - INFO - Application started successfully.
+2025-10-01 10:20:40,956 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:20:48,895 - __main__ - INFO - Application started successfully.
+2025-10-01 10:20:48,895 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:21:08,938 - __main__ - INFO - Application started successfully.
+2025-10-01 10:21:08,938 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:21:09,207 - src.database - INFO - Updated wallet balances for user 2: UPI=6100.0, Cash=300.0
+2025-10-01 10:21:09,333 - __main__ - INFO - Application started successfully.
+2025-10-01 10:21:09,333 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:21:10,504 - __main__ - INFO - Application started successfully.
+2025-10-01 10:21:10,505 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:21:10,761 - src.database - INFO - Updated wallet balances for user 2: UPI=6100.0, Cash=300.0
+2025-10-01 10:21:10,886 - __main__ - INFO - Application started successfully.
+2025-10-01 10:21:10,886 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:21:33,385 - __main__ - INFO - Application started successfully.
+2025-10-01 10:21:33,385 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:21:35,814 - src.gemini_client - ERROR - Error parsing expense with Gemini: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2025-10-01 10:21:55,133 - __main__ - INFO - Application started successfully.
+2025-10-01 10:21:55,133 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:21:55,406 - src.database - INFO - Expense saved successfully for user 2. Amount: $2000.00, Method: UPI.
+2025-10-01 10:21:55,532 - __main__ - INFO - Application started successfully.
+2025-10-01 10:21:55,532 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:22:12,078 - __main__ - INFO - Application started successfully.
+2025-10-01 10:22:12,079 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:22:12,348 - src.database - INFO - Expense saved successfully for user 2. Amount: $2850.00, Method: UPI.
+2025-10-01 10:22:12,484 - __main__ - INFO - Application started successfully.
+2025-10-01 10:22:12,484 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:22:28,450 - __main__ - INFO - Application started successfully.
+2025-10-01 10:22:28,450 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:22:31,946 - __main__ - INFO - Application started successfully.
+2025-10-01 10:22:31,946 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:23:26,790 - src.database - INFO - User 'Sowri' authenticated successfully.
+2025-10-01 10:23:26,911 - __main__ - INFO - Application started successfully.
+2025-10-01 10:23:26,911 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-10-01 10:23:52,199 - __main__ - INFO - Application started successfully.
+2025-10-01 10:23:52,199 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-10-01 10:23:52,217 - src.database - INFO - Updated wallet balances for user 4: UPI=0.0, Cash=6198.0
+2025-10-01 10:23:52,350 - __main__ - INFO - Application started successfully.
+2025-10-01 10:23:52,350 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-10-01 10:25:15,612 - __main__ - INFO - Application started successfully.
+2025-10-01 10:25:15,612 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-10-01 10:25:15,630 - src.database - INFO - Updated wallet balances for user 4: UPI=0.0, Cash=616.0
+2025-10-01 10:25:15,755 - __main__ - INFO - Application started successfully.
+2025-10-01 10:25:15,755 - __main__ - INFO - User Sowri accessed the dashboard.
+2025-10-01 10:27:43,370 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-10-01 10:27:43,864 - src.database - INFO - Database initialized/validated successfully.
+2025-10-01 10:27:43,864 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-10-01 10:27:49,048 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-10-01 10:27:49,160 - __main__ - INFO - Application started successfully.
+2025-10-01 10:27:49,161 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:28:00,856 - __main__ - INFO - Application started successfully.
+2025-10-01 10:28:00,856 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:28:04,029 - src.database - INFO - Expense saved successfully for user 2. Amount: $45.00, Method: UPI.
+2025-10-01 10:28:04,162 - __main__ - INFO - Application started successfully.
+2025-10-01 10:28:04,162 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:28:11,606 - __main__ - INFO - Application started successfully.
+2025-10-01 10:28:11,606 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-01 10:28:11,725 - src.database - INFO - Expense 244 deleted successfully for user 2.
+2025-10-01 10:28:11,881 - __main__ - INFO - Application started successfully.
+2025-10-01 10:28:11,881 - __main__ - INFO - User Hemmu accessed the dashboard.
