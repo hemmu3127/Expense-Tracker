@@ -16,7 +16,7 @@ DEFAULT_CATEGORIES: List[str] = [
     "Food & Dining", "Groceries", "Transportation", "Housing", "Utilities",
     "Shopping", "Entertainment", "Health & Wellness", "Education", "Travel",
     "Personal Care", "Gifts & Donations", "Kids", "Pets", "Business", "Miscellaneous",
-    "Devotion","Stationary", "Subscriptions", "Insurance", "Taxes"
+    "Devotion","Stationary", "Subscriptions", "Insurance", "Taxes","Snacks","Fruits & Veggies"
 ]
 
 class GeminiClient:
