@@ -1017,3 +1017,58 @@
 2025-10-07 23:52:46,443 - src.database - INFO - Expense saved successfully for user 2. Amount: $100.00, Method: Cash.
 2025-10-07 23:52:46,572 - __main__ - INFO - Application started successfully.
 2025-10-07 23:52:46,572 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:55:18,523 - src.voice_processor - INFO - Whisper small model loaded successfully
+2025-10-07 23:55:18,888 - src.database - INFO - Database initialized/validated successfully.
+2025-10-07 23:55:18,888 - src.gemini_client - INFO - Gemini client initialized successfully.
+2025-10-07 23:55:25,397 - src.database - INFO - User 'Hemmu' authenticated successfully.
+2025-10-07 23:55:25,513 - __main__ - INFO - Application started successfully.
+2025-10-07 23:55:25,513 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:56:39,472 - __main__ - INFO - Application started successfully.
+2025-10-07 23:56:39,472 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:56:50,329 - src.voice_processor - WARNING - Listening timed out. Please try speaking sooner.
+2025-10-07 23:56:50,352 - src.voice_processor - INFO - Google recognition failed, trying Whisper as fallback...
+2025-10-07 23:57:00,535 - src.voice_processor - WARNING - Listening timed out. Please try speaking sooner.
+2025-10-07 23:57:08,006 - __main__ - INFO - Application started successfully.
+2025-10-07 23:57:08,006 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:57:11,937 - src.voice_processor - INFO - Google recognized: play chips
+2025-10-07 23:57:13,203 - src.database - INFO - Expense saved successfully for user 2. Amount: $0.00, Method: UPI.
+2025-10-07 23:57:13,321 - __main__ - INFO - Application started successfully.
+2025-10-07 23:57:13,321 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:57:16,555 - __main__ - INFO - Application started successfully.
+2025-10-07 23:57:16,555 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:57:21,660 - src.voice_processor - INFO - Google recognized: chips cash Rs 10 today
+2025-10-07 23:57:22,606 - src.database - INFO - Expense saved successfully for user 2. Amount: $10.00, Method: Cash.
+2025-10-07 23:57:22,726 - __main__ - INFO - Application started successfully.
+2025-10-07 23:57:22,726 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:57:29,756 - __main__ - INFO - Application started successfully.
+2025-10-07 23:57:29,756 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:57:29,855 - src.database - INFO - Expense 274 deleted successfully for user 2.
+2025-10-07 23:57:29,980 - __main__ - INFO - Application started successfully.
+2025-10-07 23:57:29,980 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:57:33,796 - __main__ - INFO - Application started successfully.
+2025-10-07 23:57:33,796 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:57:33,881 - src.database - INFO - Expense 275 deleted successfully for user 2.
+2025-10-07 23:57:34,002 - __main__ - INFO - Application started successfully.
+2025-10-07 23:57:34,002 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:57:39,204 - __main__ - INFO - Application started successfully.
+2025-10-07 23:57:39,204 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:57:45,171 - src.voice_processor - INFO - Google recognized: Apple Rs 20 upi today
+2025-10-07 23:57:46,281 - src.database - INFO - Expense saved successfully for user 2. Amount: $20.00, Method: UPI.
+2025-10-07 23:57:46,400 - __main__ - INFO - Application started successfully.
+2025-10-07 23:57:46,400 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:57:52,514 - __main__ - INFO - Application started successfully.
+2025-10-07 23:57:52,514 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:57:52,604 - src.database - INFO - Expense 276 deleted successfully for user 2.
+2025-10-07 23:57:52,728 - __main__ - INFO - Application started successfully.
+2025-10-07 23:57:52,729 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:57:57,238 - __main__ - INFO - Application started successfully.
+2025-10-07 23:57:57,239 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:58:03,396 - src.voice_processor - INFO - Google recognized: watermelon Rs 50 upi yesterday
+2025-10-07 23:58:04,362 - src.database - INFO - Expense saved successfully for user 2. Amount: $50.00, Method: UPI.
+2025-10-07 23:58:04,500 - __main__ - INFO - Application started successfully.
+2025-10-07 23:58:04,500 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:58:10,116 - __main__ - INFO - Application started successfully.
+2025-10-07 23:58:10,116 - __main__ - INFO - User Hemmu accessed the dashboard.
+2025-10-07 23:58:10,206 - src.database - INFO - Expense 277 deleted successfully for user 2.
+2025-10-07 23:58:10,336 - __main__ - INFO - Application started successfully.
+2025-10-07 23:58:10,336 - __main__ - INFO - User Hemmu accessed the dashboard.
